@@ -1,4 +1,5 @@
 // This is middleware for restricting routes a user is not allowed to visit if not logged in
+const bcrypt = require('bcrypt');
 const jwt = require('express-jwt');
 const { secret } = require('config.json');
 const db = require('_helpers/db');
