@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes){
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        endDate: { //Stored as minutes
+        endTime: { //Stored as minutes
             type: DataTypes.INTEGER,
             allowNull: false
         }

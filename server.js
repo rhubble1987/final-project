@@ -1,19 +1,19 @@
 const express = require('express');
-
+const routes = require("./routes");
 const app = express();
-
-const http = require('http').Server(app);
-const path = require('path');
+const db = require('./models');
 
 const PORT = process.env.PORT || 3005;
-
-const db = require('./models');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname,'/public')));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
+
+app.use(routes);
 
 db.sequelize.sync().then(() => {
-  http.listen(PORT, () => console.log(`Listening at http://localhost:${PORT}`));
+  app.listen(PORT, () => console.log(`Listening at http://localhost:${PORT}`));
 });
