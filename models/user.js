@@ -24,5 +24,11 @@ module.exports =function(sequelize, DataTypes) {
        });
    };
 
+   User.associate = (models) => {
+    User.hasMany(models.EventBlock, {
+        onDelete: 'cascade'
+    });
+};
+
    return User;
 }
