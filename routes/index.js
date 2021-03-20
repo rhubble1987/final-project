@@ -1,11 +1,16 @@
 const path = require("path");
+const usersController = require("../controllers/usersController");
 const router = require("express").Router();
 const apiRoutes = require("./api");
 
-router.use("/api", apiRoutes);
+//router.use("/api", apiRoutes);
+router.get('/test', (req, res) => res.send('testing'));
 
-router.use(function(req,res) {
-    res.sendFile(path.join(__dirname, "../client/build/index.html"));
-});
+router.route('/api/users')
+    .post(usersController.createNewUser);
+
+// router.use(function(req,res) {
+//     res.sendFile(path.join(__dirname, "../client/build/index.html"));
+// });
 
 module.exports = router;
