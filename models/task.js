@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes){
     const Task = sequelize.define("Task", {
-        name: {
+        taskName: {
             type: DataTypes.STRING,
             allowNull: false
         },
@@ -33,7 +33,7 @@ module.exports = function(sequelize, DataTypes){
             allowNull: false
         },
         note: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: true
         }
     });
