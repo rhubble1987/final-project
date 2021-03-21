@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes){
             allowNull: true
         },
         importance: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             allowNull: true
         },
         durationEstimate: {
@@ -35,6 +35,10 @@ module.exports = function(sequelize, DataTypes){
         note: {
             type: DataTypes.STRING,
             allowNull: true
+        },
+        isComplete: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false
         }
     });
 
