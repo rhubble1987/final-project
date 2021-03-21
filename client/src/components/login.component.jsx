@@ -1,8 +1,15 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
+import axios from 'axios';
 
 
-export default class Login extends Component {
-    render() {
+const Login = () =>{
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const response = await axios.post('http://localhost:3005/api/users', { email, password });
+        console.log(response);
+    }
         return (
             <form>
 
@@ -10,12 +17,12 @@ export default class Login extends Component {
 
                 <div className="form-group">
                     <label>Email</label>
-                    <input type="email" className="form-control" placeholder="Enter email" />
+                    <input type="email" value={email}  onChange={(e) => setEmail(e.target.value)} className="form-control" placeholder="Enter email" />
                 </div>
 
                 <div className="form-group">
                     <label>Password</label>
-                    <input type="password" className="form-control" placeholder="Enter password" />
+                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="form-control" placeholder="Enter password" />
                 </div>
 
                 <div className="form-group">
@@ -32,4 +39,4 @@ export default class Login extends Component {
             </form>
         );
     }
-}
+    export default Login;
