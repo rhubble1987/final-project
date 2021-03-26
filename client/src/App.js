@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Login from "./components/login.component.jsx";
-import SignUp from "./components/signup.component.jsx";
+import Login from "./screens/Login";
+import SignUp from "./screens/SignUp";
 import createUser from './helpers/users.create';
 
 function App() {
