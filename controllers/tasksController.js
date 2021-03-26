@@ -1,27 +1,32 @@
 const db = require('../models');
+//const getPriority = require('../utilities/getPriority');
+//const getWorkDate = require('../utilities/getWorkDate');
 
+// {include: User, where: {userId: req.body.userId}} order: [['calculatedPriority', 'ASC']]
 module.exports = {
     getUserTasks: function(req,res) {
-        db.Task.findAll({where: {UserId: req.body.userId}, order: ['calculatedPriority', 'ASC']})
-        .then(userTasks => res.json(userTasks))
+        console.log(req)
+        db.Task.findAll({where: {userId: req.body.userId, isComplete: false}})
+        .then((userTasks) => {
+            console.log(userTasks);
+            res.json(userTasks)
+        })
         .catch(err => res.send(err));
     },
     create: function(req,res) {
-        //Need to add code here to calculate priority, work date and times
         db.Task.create({
-            name: req.body.name,
-            dueData: req.body.dueDate,
+            taskName: req.body.taskName,
+            dueDate: req.body.dueDate,
             importance: req.body.importance,
             durationEstimate: req.body.durationEstimate,
-            calculatedWorkDate: 20210331,
-            calculatedStartTime: 720,
-            calculatedEndTime: 780,
-            calculatedPriority: 0,
             note: req.body.note,
-            isComplete: false,
             UserId: req.body.userId
         })
-        .then(newTask => res.json(newTask))
+        .then((newTask) => {
+            console.log(newTask);
+            //getPriority();
+            res.json(newTask);
+        })
         .catch(err => res.send(err));
     }
 }

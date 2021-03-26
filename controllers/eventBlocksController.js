@@ -1,8 +1,10 @@
 const db = require('../models');
 
+
+
 module.exports = {
     getUserEventBlocks: function(req,res) {
-        db.EventBlock.findAll({where: {UserId: req.body.userId}, order: ['date', 'ASC']})
+        db.EventBlock.findAll({where: {UserId: req.body.userId}})
         .then(userEventBlocks => res.json(userEventBlocks))
         .catch(err => res.send(err));
     },

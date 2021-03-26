@@ -19,16 +19,15 @@ module.exports =function(sequelize, DataTypes) {
    });
    
    User.associate = (models) => {
-       User.hasMany(models.Task, {
-           onDelete: 'cascade'
-       });
-   };
-
-   User.associate = (models) => {
+    User.hasMany(models.Task, {
+        onDelete: 'cascade'
+    });
+    models.Task.belongsTo(User);
     User.hasMany(models.EventBlock, {
         onDelete: 'cascade'
     });
-};
+    models.EventBlock.belongsTo(User);
+    }
 
    return User;
 }
