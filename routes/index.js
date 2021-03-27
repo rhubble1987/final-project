@@ -9,6 +9,7 @@ router.get('/test', (req, res) => res.send('testing'));
 router.route('/api/users')
     .post(usersController.createNewUser);
 
+router.route('/api/signin').post(usersController.validateLogin);
 // router.use(function(req,res) {
 //     res.sendFile(path.join(__dirname, "../client/build/index.html"));
 // });

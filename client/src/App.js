@@ -4,6 +4,7 @@ import './App.css';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Login from "./screens/Login";
 import SignUp from "./screens/SignUp";
+import Tasks from "./screens/Tasks";
 import createUser from './helpers/users.create';
 
 function App() {
@@ -31,6 +32,9 @@ function App() {
             <Route exact path='/' component={Login} />
             <Route path="/sign-in" component={Login} />
             <Route path="/sign-up" component={SignUp} />
+            <Route path="/tasks" component={Tasks} />
+            <Route path="/createTask" component={Tasks} />
+
           </Switch>
         </div>
       </div>

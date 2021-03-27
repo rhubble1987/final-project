@@ -1,21 +1,33 @@
 import axios from 'axios';
 import React, { useState } from "react";
+import { useHistory } from 'react-router-dom';
 
 import FormGroup from "../../components/FormGroup";
 import TextInput from "../../components/TextInput";
 import { loginUser } from "../../httpClient";
+//import {Redirect} from 'react-router-dom';
 
-const handleSubmit = (email, password) => async (e) => {
-    e.preventDefault();
-    const response = await loginUser({ email, password });
-    console.log(response);
-}
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errMessage, setErrorMessage] = useState('');
+    const history = useHistory();
     
-    return (
+    const handleSubmit = (email, password) => async (e) => {
+        e.preventDefault();
+        setErrorMessage('');
+        const response = await loginUser({ email, password });
+        if (response.status) {
+            localStorage.setItem('user', response.data);
+            history.push('/tasks');   
+        } else {
+            localStorage.removeItem('user');   
+            setErrorMessage(response.data); 
+        }
+    }
+    
+    return   (
         <form>
 
             <h3>Log in</h3>
@@ -36,12 +48,14 @@ const Login = () => {
                     <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
                 </div>
             </FormGroup>
-
+            { errMessage && <label className="text-danger">{errMessage}</label> }
             <button type="submit" className="btn btn-dark btn-lg btn-block" onClick={handleSubmit(email, password)}>Sign in</button>
             <p className="forgot-password text-right">
                 Forgot <a href="#">password?</a>
             </p>
         </form>
+   
     );
+    
 }
 export default Login;

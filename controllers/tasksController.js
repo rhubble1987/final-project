@@ -2,7 +2,7 @@ const db = require('../models');
 
 module.exports = {
     getUserTasks: function(req,res) {
-        db.Task.findAll({where: {id: req.body.userId}})
+        db.Task.findAll({where: { Userid: req.body.userId, dueDate: '27-03-2021'}})
         .sort({calculatedPriority: 1})
         .then(userTasks => res.json(userTasks))
         .catch(err => res.json(err));

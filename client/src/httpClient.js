@@ -10,6 +10,10 @@ export const createUser = (userData) => {
 }
 
 export const loginUser = (userCredentials) => {
-    const route = "/api/users";
+    const route = "/api/signin";
     return httpClient.post(route, userCredentials)
+        .then(response => ({ status: true, data: response.data }))
+        .catch(err => {
+            return ({status: false, data: err.response.data.status})
+        });
 }
