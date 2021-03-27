@@ -1,48 +1,92 @@
-import React, { useState } from "react";
-import axios from 'axios';
+import React, {Component} from 'react';
+import {DayPilot, DayPilotCalendar} from "daypilot-pro-react";
 
-import { createUser } from "../../httpClient";
-import FormGroup from "../../components/FormGroup";
-import TextInput from "../../components/TextInput";
+class Calendar extends Component {
 
-const handleSubmit = (email, password, firstName, lastName) => async (e) => {
-    e.preventDefault();
-    const response = await createUser({ email, password, firstName, lastName });
-    console.log(response);
-}
+  constructor(props) {
+    super(props);
+    this.state = {
+      startDate: "2020-02-02",
+      viewType: "Week",
+      cellHeight: 30,
+      timeRangeSelectedHandling: "Enabled",
+      onTimeRangeSelected: function (args) {
+        DayPilot.Modal.prompt("Create a new event:", "Event 1").then(function(modal) {
+          var dp = args.control;
+          dp.clearSelection();
+          if (!modal.result) { return; }
+          dp.events.add(new DayPilot.Event({
+            start: args.start,
+            end: args.end,
+            id: DayPilot.guid(),
+            text: modal.result
+          }));
+        });
+      },
+      onBeforeEventRender: args => {
+        args.data.backColor = "#93c47d";
+        args.data.barHidden = true;
+        args.data.fontColor = "white";
+        args.data.borderColor = "darker";
 
-const SignUp = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+        args.data.areas = [
+          {right: 6, top: 6, width: 17, height: 17, image: "info-17-inverted-rounded-semi.svg", onClick: args=> this.showDetails(args.source)},
+          ];
+      },
+      onBeforeEventDomAdd: args => {
+        args.element = <div>
+          {args.e.data.text}
+          <div style={{position: "absolute", right: "25px", top: "5px", height: "17px", width: "17px"}}
+               onClick={()=>this.showDetails(args.e)}>
+            <img src={"info-17-semi.svg"} alt={"Info icon"}/>
+          </div>
+        </div>;
+      }
+    };
+  }
 
+  showDetails(e) {
+   DayPilot.Modal.alert(e.data.text);
+  }
+
+  componentDidMount() {
+
+    // load resource and event data
+    this.setState({
+      startDate: DayPilot.Date.today(),
+      events: [
+        {
+          id: 1,
+          text: "Event 1",
+          start: DayPilot.Date.today().addHours(10),
+          end: DayPilot.Date.today().addHours(14)
+        },
+        {
+          id: 2,
+          text: "Event 2",
+          start: "2020-02-02T10:00:00",
+          end: "2020-02-02T11:00:00",
+          barColor: "#38761d",
+          barBackColor: "#93c47d"
+        }
+      ]
+    });
+
+  }
+
+  render() {
+    var {...config} = this.state;
     return (
-        <form>
-            <h3>Today's Task</h3>
-
-            <FormGroup label="First name">
-                <TextInput value={firstName} onChange={(e) => setFirstName(e.target.value)} placeholder="First name" />
-            </FormGroup>
-
-            <FormGroup label="Last name">
-                <TextInput value={lastName} onChange={(e) => setLastName(e.target.value)} placeholder="Last name" />
-            </FormGroup>
-
-            <FormGroup label="Email">
-                <TextInput type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter email" />
-            </FormGroup>
-
-            <FormGroup label="Password">
-                <TextInput type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter password" />
-            </FormGroup>
-
-            <button type="submit" onClick={handleSubmit(email, password, firstName, lastName)} className="btn btn-dark btn-lg btn-block">Register</button>
-            <p className="forgot-password text-right">
-                Already registered <a href="#">log in?</a>
-            </p>
-        </form>
+      <div>
+        <DayPilotCalendar
+          {...config}
+          ref={component => {
+            this.calendar = component && component.control;
+          }}
+        />
+      </div>
     );
+  }
 }
 
-export default SignUp;
+export default Calendar;
