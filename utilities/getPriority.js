@@ -1,4 +1,4 @@
-const db = require('../models');
+const db = require("../models");
 
 //Create an array consisting of task due dates
 //Sort array from soonest to latest
@@ -6,68 +6,104 @@ const db = require('../models');
 //Use update method for saved tasks
 //New tasks priority will be handled with the create method in the controller
 
-const urgentTask = function(savedTasks) {
-    for (k = 0; k < savedTasks.length; k++) {
-        if (savedTasks[k].importance === 1) {
-            const urgentTask = savedTasks[k];
-            savedTasks.splice(k,1);
-            savedTasks.unshift(urgentTask);
+//
+
+module.exports = function getPriority(UserId,res) {
+  db.Task.findAll({
+    where: { UserId: UserId, isComplete: false },
+    order: [["dueDate", "ASC"]],
+  })
+    .then((data) => {
+      let savedTasks = data;
+      console.log(savedTasks);
+      if (savedTasks.length > 1) {
+        let copiedTasks = [...savedTasks];
+        //First move any urgent tasks to the top
+        for (k = 0; k < copiedTasks.length; k++) {
+          if (copiedTasks[k].importance === 1) {
+            const urgentTask = copiedTasks[k];
+            copiedTasks.splice(k, 1);
+            copiedTasks.unshift(urgentTask);
+            console.log("Urgent task moved to the top");
+          }
         }
-    }
-}
 
-const calculatePriorityByOrder = function(savedTasks) {
-    console.log("Tasks rearranged");
-    for (i = 0; i < savedTasks.length; i++) {
-        savedTasks[i].Task.calculatedPriority = i++;
-    }
-}
-
-const reassignPriorityByImportance = function(savedTasks) {
-    for (j = 0; j < savedTasks.length; j++) {
-        if (savedTasks[j].dueDate === savedTasks[j++].dueDate) {
-             if (savedTasks[j].importance < savedTasks[j++].importance) {
-                 savedTasks[j].calculatedPriority--;
-                 savedTasks[j++].calculatedPriority++;
-             } else if (savedTasks[j].importance === null && savedTasks[j++] !== null && savedTasks[j++].importance === null) {
-                 if (savedTasks[j].createdAt > savedTasks[j++].createdAt) {
-                     savedTasks[j].calculatedPriority++;
-                     savedTasks[j].calculatedPriority--;
-                 }
-             } else if (savedTasks[j].importance == 5 && savedTasks[j++] !== null && savedTasks[j++].importance ===null){
-                savedTasks[j].calculatedPriority++;
-                savedTasks[j++].calculatedPriority--;
-             }
+        //Then prioritize tasks based on their due dates(e.g. placement in the array)
+        let tasksPrioritizedByDueDate = [];
+        for (i = 0; i < copiedTasks.length; i++) {
+            
+          copiedTasks[i].dataValues = {
+            ...copiedTasks[i].dataValues,
+            calculatedPriority: i + 1,
+          };
+          tasksPrioritizedByDueDate.push(copiedTasks[i].dataValues);
+          db.Task.update(
+            {
+              calculatedPriority: copiedTasks[i].dataValues.calculatedPriority,
+            },
+            { where: { id: copiedTasks[i].dataValues.id } }
+          ).catch((err) => {
+            console.log(err);
+          });
         }
-    }
-}
+        console.log("Tasks prioritized by due date");
 
-const updatePriorities = function(savedTasks) {
-    for (i = 0; i < savedTasks.length; i++) {
-        db.Task.update({calculatedPriority: savedTasks[i].Task.calculatedPriority},{
-            where: {
-                    id: savedTasks[i].id
-                    }
-                })
-                .then(() => {
-                    console.log('Task Prioritized');
-                })
-                .catch(err => console.log(err));
-            }
+        console.log(tasksPrioritizedByDueDate);
+        /* for (j = 0; j < tasksPrioritizedByDueDate.length - 1; j++) {
+          if (
+            tasksPrioritizedByDueDate[j].dueDate ===
+              tasksPrioritizedByDueDate[j + 1].dueDate &&
+            tasksPrioritizedByDueDate[j].importance >
+              tasksPrioritizedByDueDate[j + 1].importance
+          ) {/* {
+            tasksPrioritizedByDueDate[j] = {
+              ...tasksPrioritizedByDueDate[j],
+              calculatedPriority: j + 1,
+            };
+            tasksPrioritizedByDueDate[j + 1] = {
+              ...tasksPrioritizedByDueDate[j + 1],
+              calculatedPriority: [j + 1] - 1,
+            }; 
+            db.Task.update(
+              {
+                calculatedPriority:
+                  tasksPrioritizedByDueDate[j].calculatedPriority + 1,
+              },
+              { where: { id: tasksPrioritizedByDueDate[j].id } }
+            )
+              .then(() => {console.log("Task further prioritized by importance")})
+              .catch((err) => {
+                console.log(err);
+              });
+            db.Task.update(
+              {
+                calculatedPriority:
+                  tasksPrioritizedByDueDate[j + 1].calculatedPriority - 1,
+              },
+              { where: { id: tasksPrioritizedByDueDate[j + 1].id } }
+            )
+              .then(() => {console.log("Task further prioritized by importance")})
+              .catch((err) => {
+                console.log(err);
+              });
+          } else {
+              return console.log('Task already prioritized');
+          } */
+      } else {
+        let copiedTask = [...savedTasks];
+        db.Task.update(
+          { calculatedPriority: 1 },
+          { where: { id: copiedTask[0].dataValues.id } })
+        .then(() => {console.log('Task prioritized!')})
+        .catch((err) => {
+          console.log(err);
+        });
+
+      }
+      res.sendStatus(200);
+    })
+
+    .catch((err) => {
+      console.log(err);
+    });
 };
-
-
-module.exports = async function getPriority() {
-        console.log("getPriority is running!")
-        let savedTasks;
-        db.Task.findAll({where: {UserId: req.body.userId, isComplete: false}, order: [['dueDate', 'ASC']]}).then(data => {
-                savedTasks = data;
-        })
-        .catch(err => {console.log(err)});
-
-        await urgentTask(savedTasks);
-        await calculatePriorityByOrder(savedTasks);
-        await reassignPriorityByImportance(savedTasks);
-        await updatePriorities(savedTasks);
-        
-    }

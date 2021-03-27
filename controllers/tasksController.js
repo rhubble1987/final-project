@@ -1,5 +1,5 @@
 const db = require('../models');
-//const getPriority = require('../utilities/getPriority');
+const getPriority = require('../utilities/getPriority');
 //const getWorkDate = require('../utilities/getWorkDate');
 
 // {include: User, where: {userId: req.body.userId}} order: [['calculatedPriority', 'ASC']]
@@ -22,10 +22,8 @@ module.exports = {
             note: req.body.note,
             UserId: req.body.userId
         })
-        .then((newTask) => {
-            console.log(newTask);
-            //getPriority();
-            res.json(newTask);
+        .then(function() {
+            getPriority(req.body.userId,res);
         })
         .catch(err => res.send(err));
     }
