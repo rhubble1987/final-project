@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
 import {DayPilot, DayPilotCalendar} from "daypilot-pro-react";
 
+
+
 class Calendar extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       startDate: "2020-02-02",
-      viewType: "Week",
+      viewType: "day",
       cellHeight: 30,
       timeRangeSelectedHandling: "Enabled",
       onTimeRangeSelected: function (args) {
@@ -58,7 +60,7 @@ class Calendar extends Component {
         {
           id: 1,
           text: "Event 1",
-          start: DayPilot.Date.today().addHours(10),
+          start: DayPilot.Date.today().addHours(12),
           end: DayPilot.Date.today().addHours(14)
         },
         {
