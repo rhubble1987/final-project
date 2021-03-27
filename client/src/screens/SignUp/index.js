@@ -44,5 +44,4 @@ const SignUp = () => {
         </form>
     );
 }
-
 export default SignUp;

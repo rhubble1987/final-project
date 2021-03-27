@@ -14,4 +14,6 @@ router.route('/api/signin').post(usersController.validateLogin);
 //     res.sendFile(path.join(__dirname, "../client/build/index.html"));
 // });
 
+router.route('/api/sign-up').post(usersController.createNewUser);
+
 module.exports = router;
