@@ -17,10 +17,38 @@ module.exports = {
         db.Task.create({
             taskName: req.body.taskName,
             dueDate: req.body.dueDate,
-            importance: req.body.importance,
-            durationEstimate: req.body.durationEstimate,
+            //importance: req.body.importance,
+            //durationEstimate: req.body.durationEstimate,
             note: req.body.note,
             UserId: req.body.userId
+        })
+        .then(function() {
+            getPriority(req.body.userId,res);
+        })
+        .catch(err => res.send(err));
+    },
+    updateUserTask: function(req,res) {
+        db.Task.update({
+            taskName: req.body.taskName,
+            dueDate: req.body.dueDate,
+            note: req.body.note,
+            UserId: req.body.userId
+        },
+        {
+            where: {
+            id: req.body.id
+            }
+        })
+        .then(function() {
+            getPriority(req.body.userId,res);
+        })
+        .catch(err => res.send(err));
+    },
+    deleteUserTask: function(req,res) {
+        db.Task.destroy({
+            where: {
+                id: req.body.id
+            }
         })
         .then(function() {
             getPriority(req.body.userId,res);
