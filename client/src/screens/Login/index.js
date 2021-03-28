@@ -19,10 +19,10 @@ const Login = () => {
         setErrorMessage('');
         const response = await loginUser({ email, password });
         if (response.status) {
-            localStorage.setItem('user', response.data);
+            localStorage.setItem('user', JSON.stringify(response.data));
             history.push('/tasks');   
         } else {
-            localStorage.removeItem('user');   
+            localStorage.removeItem('user');
             setErrorMessage(response.data); 
         }
     }
