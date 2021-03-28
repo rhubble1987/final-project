@@ -1,4 +1,16 @@
 const db = require("../models");
+const jwt = require('jsonwebtoken');
+
+
+
+const genToken = (user) => {
+    return jwt.sign({
+      iss: 'Joan_Louji',
+      sub: user.id,
+      iat: new Date().getTime(),
+      exp: new Date().setDate(new Date().getDate() + 1)
+    }, 'joanlouji');
+};
 
 module.exports = {
     createNewUser: function (req,res) {
@@ -11,6 +23,7 @@ module.exports = {
         .then(() => res.sendStatus(200))
         .catch(err => res.send(err));
     },
+
     validateLogin: function (req, res) {
         db.User.findAll({
             where: {
@@ -23,7 +36,13 @@ module.exports = {
         })
         .then((user) => {
             if (user.length === 1) {
-                res.status(200).json({status: 'Login success', user: user[0]});
+                const ret = {
+                    status: 'Login success',
+                    user: user[0],
+                    jwt: genToken(user[0])
+                }
+                res.status(200).json(ret);
+
             } else {
                 res.status(404).json({ status: 'Login failed, please try again', user: null });
             }

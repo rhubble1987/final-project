@@ -5,17 +5,19 @@ import { createUser } from "../../httpClient";
 import FormGroup from "../../components/FormGroup";
 import TextInput from "../../components/TextInput";
 
-const handleSubmit = (email, password, firstName, lastName) => async (e) => {
-    e.preventDefault();
-    const response = await createUser({ email, password, firstName, lastName });
-    console.log(response);
-}
+
 
 const SignUp = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
+
+    const handleSubmit = (email, password, firstName, lastName) => async (e) => {
+        e.preventDefault();
+        const response = await createUser({ email, password, firstName, lastName });
+        console.log(response);
+    }
 
     return (
         <form>
