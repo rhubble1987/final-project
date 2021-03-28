@@ -1,5 +1,8 @@
 const db = require('../models');
+const getPriority = require('../utilities/getPriority');
+//const getWorkDate = require('../utilities/getWorkDate');
 
+// {include: User, where: {userId: req.body.userId}} order: [['calculatedPriority', 'ASC']]
 module.exports = {
     getUserTasks: function(req,res) {
         console.log(req)
