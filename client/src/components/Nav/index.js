@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "./style.css";
+
 import * as ReactBootStrap from "react-bootstrap";
 
 function Navbar(){
