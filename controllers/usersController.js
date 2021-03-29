@@ -35,7 +35,7 @@ module.exports = {
             }
         })
         .then((user) => {
-            if (user.length === 1) {
+            if (user.length >= 1) {
                 const ret = {
                     status: 'Login success',
                     user: user[0],
