@@ -14,6 +14,9 @@ const passport = require("./passportStrategies");
 const jwt = require('jsonwebtoken');
 
 const app = express();
+const schedule = require('node-schedule');
+const sendMorningText = require('./utilities/sendMorningText');
+const sendAfternoonText = require('./utilities/sendAfternoonText');
 
 //middleware
 genToken = user => {
@@ -63,6 +66,23 @@ app.get('/secret',
     res.json("Secret Data")
   }
 )
+
+
+const rule = new schedule.RecurrenceRule();
+rule.hour = 8;
+rule.minute = 45;
+
+const rule2 = new schedule.RecurrenceRule();
+rule.hour = 12;
+rule.minute = 45;
+
+schedule.scheduleJob(rule, function() {
+  sendMorningText();
+});
+
+schedule.rescheduleJob(rule2, function() {
+  sendAfternoonText();
+});
 
 
 db.sequelize.sync().then(() => {
