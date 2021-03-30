@@ -2,6 +2,7 @@
   "name": "loopti",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://localhost:/3001/",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.3",
     "@popperjs/core": "^2.9.1",
