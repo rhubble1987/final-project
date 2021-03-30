@@ -9,16 +9,16 @@ module.exports = {
     },
     create: function(req,res) {
         db.Task.create({
-            name: req.body.name,
-            dueData: req.body.dueDate,
+            taskName: req.body.name,
+            dueDate: req.body.dueDate,
             importance: req.body.importance,
             durationEstimate: req.body.durationEstimate,
-            calculatedWorkData: 20210331,
+            calculatedWorkDate: 20210331,
             calculatedStartTime: 720,
             calculatedEndTime: 780,
             calculatedPriority: 1,
             note: req.body.note,
-            userId: req.body.userId
+            UserId: req.body.userId
         })
         .then(newTask => res.json(newTask))
         .catch(err => res.send(err));
