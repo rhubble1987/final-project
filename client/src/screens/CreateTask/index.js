@@ -37,7 +37,7 @@ const CreateTask = () => {
 
 
     return <Form>
-        New Task: <input onChange={(e) => setName(e.target.value)} className="form-control" type="text" value={name} />
+        New Task: <input onChange={(e) => setName(e.target.value)} className="form-control"  type="text" value={name} />
         Due Date: <input onChange={(e) => setDueDate(e.target.value)}  className="form-control" type="date" value={dueDate} />
 
         <Form.Group>
@@ -67,6 +67,15 @@ const CreateTask = () => {
                 <option>10</option>
             </Form.Control>
         </Form.Group>
+
+
+        <Form.Group controlId="exampleForm.ControlTextarea1">
+            <Form.Label>Notes:</Form.Label>
+            <Form.Control as="textarea" rows={3} onChange={(e) => setNote(e.target.value)} value={note} />
+        </Form.Group>
+
+
+     
 
         
 
