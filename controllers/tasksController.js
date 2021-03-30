@@ -15,6 +15,18 @@ module.exports = {
     },
     create: function(req,res) {
         db.Task.create({
+
+            taskName: req.body.name,
+            dueDate: req.body.dueDate,
+            importance: req.body.importance,
+            durationEstimate: req.body.durationEstimate,
+            calculatedWorkDate: 20210331,
+            calculatedStartTime: 720,
+            calculatedEndTime: 780,
+            calculatedPriority: 1,
+            note: req.body.note,
+            UserId: req.body.userId
+
             taskName: req.body.taskName,
             dueDate: req.body.dueDate,
             //importance: req.body.importance,
@@ -52,6 +64,7 @@ module.exports = {
         })
         .then(function() {
             getPriority(req.body.userId,res);
+>
         })
         .catch(err => res.send(err));
     }
