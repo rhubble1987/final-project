@@ -1,10 +1,18 @@
 const db = require('../models');
-
+const {Op} = require('sequelize');
+const moment = require('moment');
 
 
 module.exports = {
     getUserEventBlocks: function(req,res) {
-        db.EventBlock.findAll({where: {UserId: req.body.userId}})
+        db.EventBlock.findAll({
+            where: {
+                UserId: req.body.userId,
+                date: {
+                    [Op.eq]: moment().format('YYYYMMDD')
+                }
+            }
+        })
         .then(userEventBlocks => res.json(userEventBlocks))
         .catch(err => res.send(err));
     },

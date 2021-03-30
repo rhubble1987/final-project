@@ -6,7 +6,13 @@ const getPriority = require('../utilities/getPriority');
 module.exports = {
     getUserTasks: function(req,res) {
         console.log(req)
-        db.Task.findAll({where: {userId: req.body.userId, isComplete: false}})
+        db.Task.findAll({
+            where: {
+                userId: req.body.userId, 
+                isComplete: false
+            },
+            order: [['calculatedPriority', 'ASC']]
+        })
         .then((userTasks) => {
             console.log(userTasks);
             res.json(userTasks)

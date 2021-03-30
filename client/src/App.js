@@ -8,6 +8,7 @@ import Tasks from "./screens/Tasks";
 import Navbar from './components/Nav';
 import Logout from './screens/Logout';
 import CreateTask from './screens/CreateTask';
+import CalendarForToday from './screens/Calendar';
 
 function App() {
   const [jwt, setJWT] = useState('');
@@ -21,7 +22,7 @@ function App() {
             <Route exact path='/' component={() => <Login setJWT={setJWT} />} />
             <Route path="/sign-in" component={() => <Login setJWT={setJWT} />} />
             <Route path="/sign-up" component={() => <SignUp setJWT={setJWT} />} />
-            <Route path="/tasks" component={() => <Tasks jwt={jwt} />} />
+            <Route path="/tasks" component={() => <CalendarForToday jwt={jwt} />} />
             <Route path="/createTask" component={CreateTask} />
           </Switch>
         </div>
