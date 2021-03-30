@@ -24,7 +24,7 @@ const CreateTask = () => {
             userId: user.user.id
         }
 
-        httpClient.post('/tasks', { ...formdata })
+        httpClient.post('/api/tasks', { ...formdata })
             .then(response => {
                 // handle next steps
                 console.log(response)
