@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const httpClient = axios.create({
-    baseURL: "http://localhost:3005/api"
+    baseURL: "http://localhost:3005/"
 })
 
 export const requestWithJWT = ()=>{

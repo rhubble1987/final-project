@@ -6,7 +6,7 @@ import { createPopper } from '@popperjs/core';
 const CreateTask = () => {
 
     const [name, setName] = useState('');
-    const [dueDate, setDueDate] = useState(null);
+    const [dueDate, setDueDate] = useState('');
     const [importance, setImportance] = useState(1);
     const [durationEstimate, setDurationEstimate] = useState(15);
     const [note, setNote] = useState('');
