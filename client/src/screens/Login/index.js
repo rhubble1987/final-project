@@ -1,14 +1,12 @@
 import axios from 'axios';
 import React, { useState } from "react";
 import { useHistory } from 'react-router-dom';
-
 import FormGroup from "../../components/FormGroup";
 import TextInput from "../../components/TextInput";
 import { loginUser } from "../../httpClient";
 //import {Redirect} from 'react-router-dom';
 
-
-const Login = () => {
+const Login = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errMessage, setErrorMessage] = useState('');
@@ -19,10 +17,11 @@ const Login = () => {
         setErrorMessage('');
         const response = await loginUser({ email, password });
         if (response.status) {
-            localStorage.setItem('user', response.data);
-            history.push('/tasks');   
+            props.setJWT(response.data.jwt);
+            localStorage.setItem('user', JSON.stringify(response.data));
+            history.push('/tasks');
         } else {
-            localStorage.removeItem('user');   
+            localStorage.removeItem('user');
             setErrorMessage(response.data); 
         }
     }

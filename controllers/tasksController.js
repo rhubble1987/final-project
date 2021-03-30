@@ -43,5 +43,16 @@ module.exports = {
             getPriority(req.body.userId,res);
         })
         .catch(err => res.send(err));
+    },
+    deleteUserTask: function(req,res) {
+        db.Task.destroy({
+            where: {
+                id: req.body.id
+            }
+        })
+        .then(function() {
+            getPriority(req.body.userId,res);
+        })
+        .catch(err => res.send(err));
     }
 }

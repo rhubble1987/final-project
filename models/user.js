@@ -17,6 +17,10 @@ module.exports =function(sequelize, DataTypes) {
        lastName: {
            type: DataTypes.STRING,
            allowNull: false
+       },
+       mobileNumber: {
+           type: DataTypes.STRING,
+           allowNull: false
        }
    });
    
@@ -28,6 +32,9 @@ module.exports =function(sequelize, DataTypes) {
     User.hasMany(models.EventBlock, {
         onDelete: 'cascade'
     });
+    User.hasMany(models.Task);
+    models.Task.belongsTo(User);
+    User.hasMany(models.EventBlock);
     models.EventBlock.belongsTo(User);
     }
 

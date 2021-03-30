@@ -1,39 +1,40 @@
-/**
- * TODO
- * 
- * components that takes
- * {@param commands} array of command
- * {@param command = {title: string, uri: string}}
- * 
- * Loop through the elememts amd display a <Link /> with "to" prop set to "uri"
- * and title been displayed into the Link component
- *  */
+import React, { useState } from 'react';
+import * as ReactBootStrap from "react-bootstrap";
+import { useHistory } from 'react-router';
 
- import React from "react";
- import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+function Navbar(props){
+  const history = useHistory();
+  // const userToken = JSON.parse(localStorage.getItem('user'));
+  // console.log( 'Session token: ', userToken);
+  // const jwt = userToken ? userToken.jwt : '';
+  
+  const handleLogout = (e) => {
+    e.preventDefault();
+    props.setJWT('');
+    localStorage.removeItem('user');
+    history.push('/sign-in');
+  }
+  return (
+    <div className="mb-5">
+      <ReactBootStrap.Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <ReactBootStrap.Navbar.Brand href="#home">Loopti</ReactBootStrap.Navbar.Brand>
+        <ReactBootStrap.Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <ReactBootStrap.Navbar.Collapse id="responsive-navbar-nav">
+          <ReactBootStrap.Nav.Link href="/createTask"><i className="fa fa-plus" style={{ color: 'white' }}></i></ReactBootStrap.Nav.Link>
+          {
+            props.jwt ? <ReactBootStrap.Nav className="ml-auto">
+            <ReactBootStrap.Nav.Link href="/sign-in">Logout</ReactBootStrap.Nav.Link>
+          </ReactBootStrap.Nav> : <ReactBootStrap.Nav className="ml-auto">
+                    <ReactBootStrap.Nav.Link href="/sign-in">Login</ReactBootStrap.Nav.Link>
+                    <ReactBootStrap.Nav.Link  href="/sign-up">Sign up</ReactBootStrap.Nav.Link>
+                  </ReactBootStrap.Nav>
+          }
+          
+          
+        </ReactBootStrap.Navbar.Collapse>
+      </ReactBootStrap.Navbar>
+    </div>
+  );
+};
 
- function App() {
-return (<Router>
-<div className="App">
-      <nav className="navbar navbar-expand-lg navbar-light fixed-top">
-        <div className="container">
-          <Link className="navbar-brand" to={"/sign-in"}>LOOPTI</Link>
-          <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to={"/sign-in"}>Sign in</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to={"/sign-up"}>Sign up</Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-      </div>
-
-      </Router>
-
-      );
-}
-export default App;
+export default Navbar;
