@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const httpClient = axios.create({
-    baseURL: "http://localhost:3005"
+    baseURL: "http://localhost:3000/"
 })
 
 export const requestWithJWT = ()=>{
@@ -13,7 +13,7 @@ export const requestWithJWT = ()=>{
     console.log(user);
 
     return axios.create({
-        baseURL: "http://localhost:3005",
+        baseURL: "http://localhost:3000",
         headers: {
             Authorization: "Bearer " + user.jwt
         } 
@@ -45,5 +45,3 @@ export const loginUser = (userCredentials) => {
             return ({status: false, data: err.response.data.status})
         });
 }
-
-
