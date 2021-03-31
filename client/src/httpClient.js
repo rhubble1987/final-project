@@ -19,13 +19,7 @@ export const requestWithJWT = ()=>{
         } 
     })
 }
-Promise.resolve().then(()=>{
-    return requestWithJWT().get("/secret")
-}).then((response)=>{
-    console.log("req-jwt-success:", response)
-}).catch((err)=>{
-    console.error("req-jwt-failure:",err)
-})
+
 
 
 export const createUser = (userCredentials) => {
