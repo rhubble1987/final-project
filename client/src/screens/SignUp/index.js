@@ -8,10 +8,11 @@ const SignUp = () => {
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
+    const [mobileNumber, setMobileNumber] = useState('');
 
-    const handleSubmit = (email, password, firstName, lastName) => async (e) => {
+    const handleSubmit = (email, password, firstName, lastName, mobileNumber) => async (e) => {
         e.preventDefault();
-        const response = await createUser({ email, password, firstName, lastName });
+        const response = await createUser({ email, password, firstName, lastName, mobileNumber });
         console.log(response);
     }
 
@@ -35,7 +36,12 @@ const SignUp = () => {
                 <TextInput type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter password" />
             </FormGroup>
 
-            <button type="submit" onClick={handleSubmit(email, password, firstName, lastName)} className="btn btn-dark btn-lg btn-block">Register</button>
+
+            <FormGroup label="Mobile Number">
+                <TextInput value={mobileNumber} onChange={(e) => setMobileNumber(e.target.value)} placeholder="(000)000-000" />
+            </FormGroup>
+
+            <button type="submit" onClick={handleSubmit(email, password, firstName, lastName, mobileNumber)} className="btn btn-dark btn-lg btn-block">Register</button>
             <p className="forgot-password text-right">
                 Already registered <a href="#">log in?</a>
             </p>
