@@ -1,11 +1,7 @@
 import React, { useState } from "react";
-import axios from 'axios';
-
 import { createUser } from "../../httpClient";
 import FormGroup from "../../components/FormGroup";
 import TextInput from "../../components/TextInput";
-
-
 
 const SignUp = () => {
     const [email, setEmail] = useState('');

@@ -59,8 +59,6 @@ app.use(routes);
 
 app.use(express.static(path.join(__dirname,'/public')));
 
-
-
 const rule = new schedule.RecurrenceRule();
 rule.hour = 8;
 rule.minute = 45;
