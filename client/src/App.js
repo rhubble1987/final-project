@@ -9,9 +9,7 @@ import Navbar from './components/Nav';
 import CreateTask from './screens/CreateTask';
 import PrivateRoute from './components/PrivateRoute'
 import Logout from './screens/Logout';
-
-
-
+import EventBlock from './screens/EventBlocks';
 
 function App() {
   const [jwt, setJWT] = useState('');
@@ -26,12 +24,13 @@ function App() {
   <Router>
   <Navbar setJWT={setJWT} jwt={jwt} fixed="top"/>
       <div className="outer">
-        <div className="inner">
+        <div className="inner col-lg-4 col-md-8 col-sm-12">
           <Switch>
             <Route path="/sign-in" component={() => <Login setJWT={setJWT} />} />
             <Route path="/sign-up" component={() => <SignUp />} />
             <PrivateRoute path="/tasks" component={() => <Tasks />} />
             <PrivateRoute path="/logout" component={() => <Logout />} />
+            <PrivateRoute path="/eventblock" component={() => <EventBlock />} />
             <PrivateRoute path="/createTask" component={CreateTask} />
             <Redirect to='/sign-in' />
           </Switch>
