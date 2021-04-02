@@ -24,7 +24,10 @@ const CreateTask = () => {
             userId: user.user.id
         }
 
+        httpClient.post('/api/tasks', { ...formdata })
+
         httpClient.post('/tasks', { ...formdata })
+
             .then(response => {
                 // handle next steps
                 console.log(response)
@@ -34,8 +37,6 @@ const CreateTask = () => {
         // method: POST
         // data: formdata
     }
-
-
     return <Form>
         New Task: <input onChange={(e) => setName(e.target.value)} className="form-control"  type="text" value={name} />
         Due Date: <input onChange={(e) => setDueDate(e.target.value)}  className="form-control" type="date" value={dueDate} />
@@ -75,15 +76,10 @@ const CreateTask = () => {
         </Form.Group>
 
 
-     
-
-        
-
-      
-
         <Button className="btn btn-dark btn-lg btn-block" onClick={submitData}>Submit</Button>
     </Form>;
 
 }
 
 export default CreateTask;
+

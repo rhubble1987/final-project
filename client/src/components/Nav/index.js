@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import * as ReactBootStrap from "react-bootstrap";
 import { useHistory } from 'react-router';
+import { FaSpinner } from 'react-icons/fa';
+import './style.css';
+
+
 
 function Navbar(props){
   const history = useHistory();
@@ -15,7 +19,15 @@ function Navbar(props){
   //   history.push('/sign-in');
   // }
   const renderAfterSigninButtons =  <>
+
+      <ReactBootStrap.Nav.Link href="/createTask">
+          <i className="fa fa-plus" style={{ color: 'white' }}></i>
+      </ReactBootStrap.Nav.Link>
+      <ReactBootStrap.Nav.Link href="/eventblock">
+          <i className="fa fa-calendar px-1" style={{ color: 'white' }}></i>
+      </ReactBootStrap.Nav.Link>
       <ReactBootStrap.Nav.Link href="/createTask"><i className="fa fa-plus" style={{ color: 'white' }}></i></ReactBootStrap.Nav.Link>
+
       <ReactBootStrap.Nav className="ml-auto">
         <ReactBootStrap.Nav.Link href="/logout">Logout</ReactBootStrap.Nav.Link>
       </ReactBootStrap.Nav>
@@ -29,7 +41,7 @@ function Navbar(props){
   return (
     <div className="mb-5">
       <ReactBootStrap.Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <ReactBootStrap.Navbar.Brand href="#home">Loopti</ReactBootStrap.Navbar.Brand>
+        <ReactBootStrap.Navbar.Brand href="#home">L<FaSpinner icon="spinner" className="spinner" /><FaSpinner icon="spinner" className="spinner" />pti</ReactBootStrap.Navbar.Brand>
         <ReactBootStrap.Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <ReactBootStrap.Navbar.Collapse id="responsive-navbar-nav">
           {

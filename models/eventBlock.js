@@ -11,6 +11,10 @@ module.exports = function(sequelize, DataTypes){
         endTime: { //Stored as minutes
             type: DataTypes.INTEGER,
             allowNull: false
+        },
+        UserId: {
+            type: DataTypes.INTEGER,
+            allowNull: false
         }
     });
 

@@ -32,7 +32,7 @@ class Calendar extends Component {
         args.data.borderColor = "darker";
 
         args.data.areas = [
-          {right: 6, top: 6, width: 17, height: 17, image: "info-17-inverted-rounded-semi.svg", onClick: args=> this.showDetails(args.source)},
+          {right: 6, top: 6, width: 17, height: 17, image: "info-circle-solid.svg", onClick: args=> this.showDetails(args.source)},
           ];
       },
       onBeforeEventDomAdd: args => {
@@ -40,7 +40,8 @@ class Calendar extends Component {
           {args.e.data.text}
           <div style={{position: "absolute", right: "25px", top: "5px", height: "17px", width: "17px"}}
                onClick={()=>this.showDetails(args.e)}>
-            <img src={"info-17-semi.svg"} alt={"Info icon"}/>
+                 <i className="fa fa-info"></i>
+            {/* <img src={"info-17-semi.svg"} alt={"Info icon"}/> */}
           </div>
         </div>;
       }
