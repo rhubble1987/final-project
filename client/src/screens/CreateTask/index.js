@@ -38,33 +38,6 @@ const CreateTask = () => {
         New Task: <input onChange={(e) => setName(e.target.value)} className="form-control"  type="text" value={name} />
         Due Date: <input onChange={(e) => setDueDate(e.target.value)}  className="form-control" type="date" value={dueDate} />
 
-        <Form.Group>
-            <Form.Label>Task Time:</Form.Label>
-            <br/>
-            <Form.Control as="select" custom onChange={(e) =>  setDurationEstimate(e.target.value)} value={durationEstimate}>
-                <option value={15}>15 min</option>
-                <option value={30}>30 min</option>
-                <option value={60}>60 min</option>
-                {/* <option>more then 1 hour</option> */}
-            </Form.Control>
-        </Form.Group>
-
-        <Form.Group>
-            <Form.Label>Priority Level:</Form.Label>
-            <br/>
-            <Form.Control as="select" custom onChange={(e) =>  setImportance(e.target.value)} value={importance}>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10</option>
-            </Form.Control>
-        </Form.Group>
 
 
         <Form.Group controlId="exampleForm.ControlTextarea1">
