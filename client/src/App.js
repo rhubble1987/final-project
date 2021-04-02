@@ -9,6 +9,7 @@ import Navbar from './components/Nav';
 import CreateTask from './screens/CreateTask';
 import PrivateRoute from './components/PrivateRoute'
 import Logout from './screens/Logout';
+
 import EventBlock from './screens/EventBlocks';
 
 function App() {
@@ -30,7 +31,9 @@ function App() {
             <Route path="/sign-up" component={() => <SignUp />} />
             <PrivateRoute path="/tasks" component={() => <Tasks />} />
             <PrivateRoute path="/logout" component={() => <Logout />} />
+
             <PrivateRoute path="/eventblock" component={() => <EventBlock />} />
+
             <PrivateRoute path="/createTask" component={CreateTask} />
             <Redirect to='/sign-in' />
           </Switch>
