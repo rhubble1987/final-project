@@ -9,6 +9,7 @@ const { Op } = require("sequelize");
 
 
 module.exports = function sendMorningText() {
+    console.log('Function executing');
     db.User.findAll({
         include: {
             model: db.Task,

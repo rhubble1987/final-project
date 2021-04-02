@@ -1,4 +1,5 @@
 const db = require("../models");
+const getWorkDate = require("./getWorkDate");
 
 //Create an array consisting of task due dates
 //Sort array from soonest to latest
@@ -15,7 +16,6 @@ module.exports = function getPriority(UserId,res) {
   })
     .then((data) => {
       let savedTasks = data;
-      console.log(savedTasks);
       if (savedTasks.length > 1) {
         let copiedTasks = [...savedTasks];
         //First move any urgent tasks to the top
@@ -46,9 +46,7 @@ module.exports = function getPriority(UserId,res) {
             console.log(err);
           });
         }
-        console.log("Tasks prioritized by due date");
 
-        console.log(tasksPrioritizedByDueDate);
         /* for (j = 0; j < tasksPrioritizedByDueDate.length - 1; j++) {
           if (
             tasksPrioritizedByDueDate[j].dueDate ===
@@ -100,7 +98,7 @@ module.exports = function getPriority(UserId,res) {
         });
 
       }
-      res.sendStatus(200);
+      getWorkDate(UserId,res)
     })
 
     .catch((err) => {

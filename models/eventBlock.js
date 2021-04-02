@@ -6,11 +6,27 @@ module.exports = function(sequelize, DataTypes){
         },
         startTime: { //Stored as minutes
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                min: 0,
+                max: 1440
+            }
         },
         endTime: { //Stored as minutes
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                min: 0,
+                max: 1440
+            }
+        },
+        duration: { //Stored as minutes,
+            type: DataTypes.INTEGER,
+            allowNull: false      
+        },
+        scheduleType: {
+            type: DataTypes.STRING,
+            defaultValue: 'event'
         }
     });
 

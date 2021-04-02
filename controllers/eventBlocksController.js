@@ -17,14 +17,18 @@ module.exports = {
         .catch(err => res.send(err));
     },
     create: function(req,res) {
-        //Need to add code here to calculate new priorities and work days and times
+        const startTime = req.body.startTime;
+        const endTime = req.body.endTime;
         db.EventBlock.create({
             date: req.body.date,
-            startTime: req.body.startTime,
-            endTime: req.body.endTime,
+            startTime: startTime,
+            endTime: endTime,
+            duration: endTime - startTime,
             UserId: req.body.userId
         })
-        .then(newEventBlock => res.json(newEventBlock))
+        .then(function() {
+            getPriority(req.body.userId,res);
+        })
         .catch(err => res.send(err));
     }
 }
