@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { createUser } from "../../httpClient";
 import FormGroup from "../../components/FormGroup";
 import TextInput from "../../components/TextInput";
+import { useHistory } from 'react-router-dom';
 
 const SignUp = () => {
     const [email, setEmail] = useState('');
@@ -9,10 +10,12 @@ const SignUp = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [mobileNumber, setMobileNumber] = useState('');
+    const history = useHistory();
 
     const handleSubmit = (email, password, firstName, lastName, mobileNumber) => async (e) => {
         e.preventDefault();
         const response = await createUser({ email, password, firstName, lastName, mobileNumber });
+        history.push('/sign-in');
         console.log(response);
     }
 
