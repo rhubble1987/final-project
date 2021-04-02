@@ -6,6 +6,5 @@ router
     .post(tasksController.create)
     .put(tasksController.updateUserTask)
     .delete(tasksController.deleteUserTask);
-    
 
 module.exports = router;

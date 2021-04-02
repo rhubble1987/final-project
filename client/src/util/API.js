@@ -1,14 +1,14 @@
 import axios from "axios";
 
 export default {
-    getUserTasks: function() {
+    getUserTasks: function(userId) {
         return axios.get('/api/tasks', {
-            userId: 1
+            userId: userId
         });
     },
-    getUserEvents: function() {
+    getUserEvents: function(userId) {
         return axios.get('/api/events', {
-            userId: 1
+            userId: userId
         }) 
     }
 }

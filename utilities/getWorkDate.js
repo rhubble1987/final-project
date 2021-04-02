@@ -1,8 +1,7 @@
 const db = require("../models");
 const moment = require("moment");
 const { Op } = require("sequelize");
-const getWorkTimesToday = require("./getWorkTimesToday");
-const getWorkTimesTomorrow = require("./getWorkTimesTomorrow");
+const getWorkTimes = require("./getWorkTimes");
 
 module.exports = function getWorkDate(UserId, res) {
   db.EventBlock.findAll({
@@ -88,12 +87,7 @@ module.exports = function getWorkDate(UserId, res) {
             )
             .catch(err => {console.log(err)});
           }
-          if (moment().format('H') < 16) {
-            getWorkTimesToday(UserId, res);
-          }
-          if (moment().format('H') > 16) {
-            getWorkTimesTomorrow(UserId, res);
-          }
+            getWorkTimes(UserId, res);
           
         })
         .catch((err) => {

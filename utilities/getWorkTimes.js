@@ -2,14 +2,24 @@ const db = require("../models");
 const moment = require("moment");
 const { Op } = require("sequelize");
 
-module.exports = function getWorkTimesToday(UserId, res) {
+module.exports = function getWorkTimes(UserId, res) {
+  let todayOrTomorrowSearch;
+
+  if (moment().format('H') < 16) {
+    todayOrTomorrowSearch = moment().format("YYYYMMDD");
+  }
+
+  if (moment().format('H') >= 16) {
+    todayOrTomorrowSearch = moment().add(1,'days').format("YYYYMMDD");
+  }
+
   availableStartTimes = [540,570,600,630,660,690,720,750,780,810,840,870,900,930,960,990,1020];
 
   db.EventBlock.findAll({
     where: {
       UserId: UserId,
       date: {
-        [Op.eq]: moment().format("YYYYMMDD"),
+        [Op.eq]: todayOrTomorrowSearch
       },
       endTime: {
         [Op.gte]: 540,
@@ -18,14 +28,14 @@ module.exports = function getWorkTimesToday(UserId, res) {
         [Op.lte]: 1020,
       },
     },
-    order: [["startTime", "ASC"]],
+    order: [["startTime", "ASC"]]
   })
     .then((savedEventBlocks) => {
       db.Task.findAll({
         where: {
           UserId: UserId,
           calculatedWorkDate: {
-            [Op.eq]: moment().format("YYYYMMDD"),
+            [Op.eq]: todayOrTomorrowSearch,
           },
           isComplete: false,
         },
@@ -40,21 +50,19 @@ module.exports = function getWorkTimesToday(UserId, res) {
           }
         
         }
-        console.log(availableStartTimes);
 
         let tasksWithTimes = [];
         for (j = 0; j < savedTasksWithoutTimes.length; j++) {
-          savedTasksWithoutTimes[j].dataValues.calculatedStartTime = availableStartTimes[j];
-          savedTasksWithoutTimes[j].dataValues.calculatedEndTime = availableStartTimes[j] + 30;
-          tasksWithTimes.push(savedTasksWithoutTimes.dataValues);
+          savedTasksWithoutTimes[j].dataValues.startTime = availableStartTimes[j];
+          savedTasksWithoutTimes[j].dataValues.endTime = availableStartTimes[j] + 30;
+          tasksWithTimes.push(savedTasksWithoutTimes[j].dataValues);
         }
 
-        
         for (m = 0; m < tasksWithTimes.length; m++) {
             db.Task.update(
                 {
-                    calculatedStartTime: tasksWithTimes[m].calculatedStartTime,
-                    calculatedEndTime: tasksWithTimes[m].calculatedEndTime
+                    startTime: tasksWithTimes[m].startTime,
+                    endTime: tasksWithTimes[m].endTime
                 },
                 {
                     where: {

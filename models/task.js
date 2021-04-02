@@ -32,11 +32,11 @@ module.exports = function(sequelize, DataTypes){
             type: DataTypes.INTEGER,
            defaultValue: moment().add(1,'days').format('YYYYMMDD')
         },
-        calculatedStartTime: { //Should be stored as minutes in the day (e.g. 12pm = 720) and then will be converted to formatted time when displayed to the user
+        startTime: { //Should be stored as minutes in the day (e.g. 12pm = 720) and then will be converted to formatted time when displayed to the user
             type: DataTypes.INTEGER,
             defaultValue: 0
         },
-        calculatedEndTime: {
+        endTime: {
             type: DataTypes.INTEGER,
             defaultValue: 0
         },

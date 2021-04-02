@@ -25,7 +25,7 @@ module.exports = {
             dueDate: req.body.dueDate,
             //importance: req.body.importance,
             //durationEstimate: req.body.durationEstimate,
-            note: req.body.note,
+             note: req.body.note,
             UserId: req.body.userId
         })
         .then(function() {
