@@ -19,16 +19,21 @@ function Navbar(props){
   //   history.push('/sign-in');
   // }
   const renderAfterSigninButtons =  <>
+
       <ReactBootStrap.Nav.Link href="/createTask">
           <i className="fa fa-plus" style={{ color: 'white' }}></i>
       </ReactBootStrap.Nav.Link>
       <ReactBootStrap.Nav.Link href="/tasks">
           <i className="fa fa-calendar px-1" style={{ color: 'white' }}></i>
       </ReactBootStrap.Nav.Link>
+
       <ReactBootStrap.Nav.Link href="/events">
           <i className="fa fa-bullseye px-1" style={{ color: 'white' }}></i>
       </ReactBootStrap.Nav.Link>
-      
+
+      <ReactBootStrap.Nav.Link href="/createTask"><i className="fa fa-plus" style={{ color: 'white' }}></i></ReactBootStrap.Nav.Link>
+
+
       <ReactBootStrap.Nav className="ml-auto">
         <ReactBootStrap.Nav.Link href="/logout">Logout</ReactBootStrap.Nav.Link>
       </ReactBootStrap.Nav>

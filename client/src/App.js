@@ -9,6 +9,7 @@ import Navbar from './components/Nav';
 import CreateTask from './screens/CreateTask';
 import PrivateRoute from './components/PrivateRoute'
 import Logout from './screens/Logout';
+
 import EventBlock from './screens/EventBlocks';
 
 
