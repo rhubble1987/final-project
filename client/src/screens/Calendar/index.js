@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react";
 import API from "../../util/API";
 import ScheduleBlock from "../../components/ScheduleBlock";
-import {requestWithJWT} from "../../httpClient";
 
 
 function CalendarForToday() {
@@ -10,25 +9,29 @@ function CalendarForToday() {
 
     useEffect(() => {
          mapEventsandTasks();
-    }, []);
+    }, [mapEventsandTasks()]);
 
     function mapEventsandTasks() {
         let eventsAndTasks = [];
-        const response = requestWithJWT();
-        if (response) {
-        API.getUserEvents(response[1].user.id)
+        console.log(user.user.id);
+        API.getUserEvents(user.user.id)
         .then(userEvents => {
-            eventsAndTasks = userEvents;
-            API.getUserTasks(response[1].user.id)
+            console.log(userEvents);
+            /* for (i = 0; i < userEvents.length; i++) {
+                eventsAndTasks.push(userEvents[i]);
+            } */
+            API.getUserTasks(user.user.id)
             .then(userTasks => {
-                eventsAndTasks = eventsAndTasks.push(userTasks);
+                console.log(userTasks);
+                /* for (j = 0; j < userTasks.length; j++) {
+                    eventsAndTasks.push(userTasks[j]);
+                }
                 eventsAndTasks.sort(function(a,b) {
                     return a.startDate - b.startDate
                 });
-                setSchedule(eventsAndTasks);
+                setSchedule(eventsAndTasks); */
             });
         }); 
-        }
         
     };
 
