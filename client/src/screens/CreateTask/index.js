@@ -6,8 +6,6 @@ const CreateTask = () => {
 
     const [name, setName] = useState('');
     const [dueDate, setDueDate] = useState('');
-    const [importance, setImportance] = useState(1);
-    const [durationEstimate, setDurationEstimate] = useState(15);
     const [note, setNote] = useState('');
     const user = JSON.parse(localStorage.getItem("user"))
   
@@ -17,8 +15,6 @@ const CreateTask = () => {
         const formdata = {
             name: name,
             dueDate: dueDate,
-            importance: importance,
-            durationEstimate: durationEstimate,
             note: note,
             userId: user.user.id
         }

@@ -22,11 +22,11 @@ const EventBlock = () => {
             userId: user.user.id
         }
 
-        httpClient.post('/api/events', { ...formdata })
+        httpClient.post('/api/tasks', { ...formdata })
             .then(response => {
                 // handle next steps
                 console.log(response)
-                history.push('/events')
+                history.push('/tasks')
             })
         
     }
