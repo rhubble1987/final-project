@@ -1,12 +1,29 @@
 const db = require('../models');
+const moment = require('moment');
 
 module.exports = {
-    getUserTasks: function(req,res) {
-        console.log(req)
+    getUserTasksForToday: function(req,res) {
+        console.log(req.params);
         db.Task.findAll({
             where: {
-                userId: req.body.userId, 
-                isComplete: false
+                userId: req.params.userId, 
+                isComplete: false,
+                calculatedWorkDate: moment().format('YYYYMMDD')
+            },
+            order: [['calculatedPriority', 'ASC']]
+        })
+        .then((userTasks) => {
+            console.log(userTasks);
+            res.json(userTasks)
+        })
+        .catch(err => res.send(err));
+    },
+    getAllTasksForAUser: function(req,res) {
+        console.log(req.params);
+        db.Task.findAll({
+            where: {
+                userId: req.params.userId, 
+                isComplete: false,
             },
             order: [['calculatedPriority', 'ASC']]
         })
@@ -18,7 +35,7 @@ module.exports = {
     },
     create: function(req,res) {
         db.Task.create({
-            taskName: req.body.name,
+            taskName: req.body.taskName,
             dueDate: req.body.dueDate,
             note: req.body.note,
             UserId: req.body.userId
@@ -33,8 +50,8 @@ module.exports = {
             taskName: req.body.taskName,
             dueDate: req.body.dueDate,
             note: req.body.note,
-            UserId: req.body.userId
-
+            UserId: req.body.userId,
+            isComplete: req.body.completed
         },
         {
             where: {

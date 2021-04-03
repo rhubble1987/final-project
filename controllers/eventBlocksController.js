@@ -7,7 +7,7 @@ module.exports = {
     getUserEventBlocks: function(req,res) {
         db.EventBlock.findAll({
             where: {
-                UserId: req.body.userId,
+                UserId: req.params.userId,
                 date: {
                     [Op.eq]: moment().format('YYYYMMDD')
                 }

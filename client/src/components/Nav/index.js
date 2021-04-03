@@ -20,14 +20,19 @@ function Navbar(props){
   // }
   const renderAfterSigninButtons =  <>
 
-      <ReactBootStrap.Nav.Link href="/createTask">
-          <i className="fa fa-plus" style={{ color: 'white' }}></i>
+      <ReactBootStrap.Nav.Link href="/tasks" style={{ color: 'white' }}>
+          <i className="fa fa-bullseye px-1" style={{ color: 'white' }}></i>Today's Schedule
       </ReactBootStrap.Nav.Link>
-      <ReactBootStrap.Nav.Link href="/eventblock">
-          <i className="fa fa-calendar px-1" style={{ color: 'white' }}></i>
+      <ReactBootStrap.Nav.Link href="/createTask" style={{ color: 'white' }}>
+          <i className="fa fa-plus px-1" style={{ color: 'white' }}></i> Add Task
       </ReactBootStrap.Nav.Link>
-      <ReactBootStrap.Nav.Link href="/createTask"><i className="fa fa-plus" style={{ color: 'white' }}></i></ReactBootStrap.Nav.Link>
-
+      <ReactBootStrap.Nav.Link href="/eventblock" style={{ color: 'white' }}>
+          <i className="fa fa-calendar px-1" style={{ color: 'white' }}/> Add Event
+      </ReactBootStrap.Nav.Link>
+        <ReactBootStrap.Nav.Link href="/alltasks" style={{ color: 'white' }}>
+          <i className="fa fa-clipboard-list px-1" style={{ color: 'white' }}/> All Tasks
+        </ReactBootStrap.Nav.Link>
+      
       <ReactBootStrap.Nav className="ml-auto">
         <ReactBootStrap.Nav.Link href="/logout">Logout</ReactBootStrap.Nav.Link>
       </ReactBootStrap.Nav>

@@ -1,43 +1,47 @@
 import React, {useState} from 'react';
 import Moment from 'react-moment';
 import moment from 'moment';
+import { CloseButton } from 'react-bootstrap';
 
 function ScheduleBlock(props) {
-    const [taskState, setTaskState] = useState('card');
-    const [eventState, setEventState] = useState('card');
+    console.log(props);
+    const cls = "";
 
     if (moment().format('H') >= props.calculatedStartTime && moment().format('H') < props.calculatedEndTime) {
-        setTaskState('card text-white bg-success');   
+        cls = 'card text-white bg-success'  
     }
 
     if (moment().format('H') >= props.startTime && moment().format('H') < props.endTime) {
-        setEventState('card text-white bg-danger');
+        cls = 'card text-white bg-danger'
     }
-        if (props.type === 'task') {
-            
+        if (props.scheduleBlock.scheduleType === 'task') {
             return (
-                <div className={taskState}>
+                <div className={cls}>
                     <div className="card-body">
-                        <p>{props.taskName} | <Moment format="h:mm">{props.calculatedStartTime}</Moment> - <Moment format="h:mm">{props.calculatedEndTime}</Moment></p>
-                        <p>Priority: {props.calculatedPriority}</p>
-                        <p>Due: {props.dueDate}</p>
-                        <p>Notes: {props.note}</p>
+                        <p>{props.scheduleBlock.taskName} | <Moment format="h:mm">{props.scheduleBlock.startTime}</Moment> - <Moment format="h:mm">{props.scheduleBlock.endTime}</Moment></p>
+                        <p>Priority: {props.scheduleBlock.calculatedPriority}</p>
+                        <p>Due: {props.scheduleBlock.dueDate}</p>
+                        <p>Notes: {props.scheduleBlock.note}</p>
                     </div>
                 </div>
             )
         }
-        if (props.type === 'event') {
+
+        if (props.scheduleBlock.scheduleType === 'event') {
             return (
-                <div className={eventState}>
+                <div className={cls}>
                     <div className="card-body">
-                        <p>{props.taskName} | Due: {props.dueDate}</p>
-                        <p>Priority: {props.calculatedPriority}</p>
-                        <p>Notes: {props.note}</p>
+                        <p>{props.scheduleBlock.taskName} | Due: {props.scheduleBlock.dueDate}</p>
+                        <p>Priority: {props.scheduleBlock.calculatedPriority}</p>
+                        <p>Notes: {props.scheduleBlock.note}</p>
                     </div>
                 </div>
             )
         }
+        return null;
     }
+
+    
 
 
 export default ScheduleBlock;

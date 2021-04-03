@@ -7,31 +7,26 @@ const CreateTask = () => {
 
     const [name, setName] = useState('');
     const [dueDate, setDueDate] = useState('');
-    const [importance, setImportance] = useState(1);
-    const [durationEstimate, setDurationEstimate] = useState(15);
     const [note, setNote] = useState('');
-    const user = JSON.parse(localStorage.getItem("user"))
+    const user = JSON.parse(localStorage.getItem("user"));
+    console.log(user.user.id);
   
     const history = useHistory();
 
     const submitData = () => {
         const formdata = {
-            name: name,
+            taskName: name,
             dueDate: dueDate,
-            importance: importance,
-            durationEstimate: durationEstimate,
             note: note,
             userId: user.user.id
         }
 
         httpClient.post('/api/tasks', { ...formdata })
 
-        httpClient.post('/tasks', { ...formdata })
-
             .then(response => {
                 // handle next steps
                 console.log(response)
-                history.push('/tasks')
+                history.push('/api/tasks')
             })
         // url: /tasks
         // method: POST
@@ -41,33 +36,9 @@ const CreateTask = () => {
         New Task: <input onChange={(e) => setName(e.target.value)} className="form-control"  type="text" value={name} />
         Due Date: <input onChange={(e) => setDueDate(e.target.value)}  className="form-control" type="date" value={dueDate} />
 
-        <Form.Group>
-            <Form.Label>Task Time:</Form.Label>
-            <br/>
-            <Form.Control as="select" custom onChange={(e) =>  setDurationEstimate(e.target.value)} value={durationEstimate}>
-                <option value={15}>15 min</option>
-                <option value={30}>30 min</option>
-                <option value={60}>60 min</option>
-                {/* <option>more then 1 hour</option> */}
-            </Form.Control>
-        </Form.Group>
+        
 
-        <Form.Group>
-            <Form.Label>Priority Level:</Form.Label>
-            <br/>
-            <Form.Control as="select" custom onChange={(e) =>  setImportance(e.target.value)} value={importance}>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10</option>
-            </Form.Control>
-        </Form.Group>
+       
 
 
         <Form.Group controlId="exampleForm.ControlTextarea1">
