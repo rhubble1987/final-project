@@ -63,10 +63,11 @@ body {
   padding: 10px;
   font-weight: 400;
   font-family: sans-serif;
-  background: #fafbfc;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #f64f59, #c471ed, #12c2e9);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to bottom, #f1d246, hsl(51, 85%, 61%), #fafafa); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  
+  width: 100wh;
+  height: 90vh;
+  color: rgb(7, 7, 7);
+  background: linear-gradient(170deg, #f3815f, #E73C7E, #23A6D5, #23D5AB);
+  background-size: 250% 250%;
 }
 
 body, html, .App, #root, .outer {
