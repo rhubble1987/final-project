@@ -29,9 +29,7 @@ const CreateTask = () => {
                 console.log(response)
                 history.push('/tasks')
             })
-        // url: /tasks
-        // method: POST
-        // data: formdata
+        
     }
 
     return <Form>

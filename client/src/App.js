@@ -11,6 +11,7 @@ import PrivateRoute from './components/PrivateRoute'
 import Logout from './screens/Logout';
 import EventBlock from './screens/EventBlocks';
 
+
 function App() {
   const [jwt, setJWT] = useState('');
   useEffect(() => {
@@ -30,7 +31,7 @@ function App() {
             <Route path="/sign-up" component={() => <SignUp />} />
             <PrivateRoute path="/tasks" component={() => <Tasks />} />
             <PrivateRoute path="/logout" component={() => <Logout />} />
-            <PrivateRoute path="/eventblock" component={() => <EventBlock />} />
+            <PrivateRoute path="/events" component={() => <EventBlock />} />
             <PrivateRoute path="/createTask" component={CreateTask} />
             <Redirect to='/sign-in' />
           </Switch>
