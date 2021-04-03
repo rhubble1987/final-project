@@ -1,8 +1,5 @@
 const db = require('../models');
-const getPriority = require('../utilities/getPriority');
-//const getWorkDate = require('../utilities/getWorkDate');
 
-// {include: User, where: {userId: req.body.userId}} order: [['calculatedPriority', 'ASC']]
 module.exports = {
     getUserTasks: function(req,res) {
         console.log(req)
@@ -21,11 +18,9 @@ module.exports = {
     },
     create: function(req,res) {
         db.Task.create({
-            taskName: req.body.taskName,
+            taskName: req.body.name,
             dueDate: req.body.dueDate,
-            //importance: req.body.importance,
-            //durationEstimate: req.body.durationEstimate,
-             note: req.body.note,
+            note: req.body.note,
             UserId: req.body.userId
         })
         .then(function() {
@@ -39,6 +34,7 @@ module.exports = {
             dueDate: req.body.dueDate,
             note: req.body.note,
             UserId: req.body.userId
+
         },
         {
             where: {
@@ -58,7 +54,9 @@ module.exports = {
         })
         .then(function() {
             getPriority(req.body.userId,res);
+
         })
+        .then(newTask => res.json(newTask))
         .catch(err => res.send(err));
     }
 }

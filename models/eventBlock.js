@@ -26,7 +26,12 @@ module.exports = function(sequelize, DataTypes){
         },
         scheduleType: {
             type: DataTypes.STRING,
-            defaultValue: 'event'
+            defaultValue: 'event',
+        },
+        UserId: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+
         }
     });
 

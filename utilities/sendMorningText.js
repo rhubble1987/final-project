@@ -23,20 +23,22 @@ module.exports = function sendMorningText() {
         order: [[db.Task, 'calculatedPriority', 'ASC']]
     })
     .then(users => {
-        for (i = 0; i < users.length; i++) {
+      for (i = 0; i < users.length; i++) {
         if (users[i].dataValues.Tasks !== null) {
-            client.messages
+          client.messages
             .create({
-                body: `Good morning, from Loopti! Here are your current top five tasks: ${users[i].dataValues.Tasks[0].dataValues.taskName}, ${users[i].dataValues.Tasks[1].dataValues.taskName}, ${users[i].dataValues.Tasks[2].dataValues.taskName}, ${users[i].dataValues.Tasks[3].dataValues.taskName}, and ${users[i].dataValues.Tasks[4].dataValues.taskName}. Check your Loopti calendar to see the best times to work on these!`,
-                from: '+17036352929',
-                to: users[i].dataValues.mobileNumber
+              body: `Good morning, from Loopti! Here are your current top five tasks: ${users[i].dataValues.Tasks[0].dataValues.taskName}, ${users[i].dataValues.Tasks[1].dataValues.taskName}, ${users[i].dataValues.Tasks[2].dataValues.taskName}, ${users[i].dataValues.Tasks[3].dataValues.taskName}, and ${users[i].dataValues.Tasks[4].dataValues.taskName}. Check your Loopti calendar to see the best times to work on these!`,
+              from: '+17036352929',
+              to: users[i].dataValues.mobileNumber
             })
             .then(() => console.log("Text sent to user."))
-            .catch(err => {console.log(err)});
+            .catch(err => {
+              console.log(err);
+            });
         }
-        }
-    })
-}
-    
-            
+      }
+    });
+};
+
+
 

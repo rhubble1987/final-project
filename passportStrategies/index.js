@@ -1,7 +1,7 @@
-const passport = require("passport")
+const passport = require("passport");
 
 const jwtStrategy = require("./jwt");
 
-passport.use(jwtStrategy)
+passport.use(jwtStrategy);
 
 module.exports = passport;

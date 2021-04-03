@@ -1,29 +1,45 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import Login from "./screens/Login";
 import SignUp from "./screens/SignUp";
 import Tasks from "./screens/Tasks";
 import Navbar from './components/Nav';
-import Logout from './screens/Logout';
 import CreateTask from './screens/CreateTask';
-import CalendarForToday from './screens/Calendar';
+
+//import CalendarForToday from './screens/Calendar';
+
+import PrivateRoute from './components/PrivateRoute'
+import Logout from './screens/Logout';
+
+import EventBlock from './screens/EventBlocks';
+
 
 function App() {
   const [jwt, setJWT] = useState('');
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      setJWT(user.jwt);
+    }
+  }, [])
   return (
   <div>
   <Router>
   <Navbar setJWT={setJWT} jwt={jwt} fixed="top"/>
       <div className="outer">
-        <div className="inner">
+        <div className="inner col-lg-4 col-md-8 col-sm-12">
           <Switch>
-            <Route exact path='/' component={() => <Login setJWT={setJWT} />} />
             <Route path="/sign-in" component={() => <Login setJWT={setJWT} />} />
-            <Route path="/sign-up" component={() => <SignUp setJWT={setJWT} />} />
-            <Route path="/tasks" component={() => <CalendarForToday jwt={jwt} />} />
-            <Route path="/createTask" component={CreateTask} />
+            <Route path="/sign-up" component={() => <SignUp />} />
+            <PrivateRoute path="/tasks" component={() => <Tasks />} />
+            <PrivateRoute path="/logout" component={() => <Logout />} />
+
+            <PrivateRoute path="/eventblock" component={() => <EventBlock />} />
+
+            <PrivateRoute path="/createTask" component={CreateTask} />
+            <Redirect to='/sign-in' />
           </Switch>
         </div>
       </div>

@@ -1,8 +1,10 @@
+import { useEffect } from "react";
 import { Redirect } from "react-router";
 
 const Logout = () => {
-    localStorage.removeItem('user');
-    
+    useEffect(() => {
+        localStorage.removeItem('user');
+    }, []);    
     return <Redirect to="/sign-in" />;
 };
 

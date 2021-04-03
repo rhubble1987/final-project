@@ -8,9 +8,7 @@ const bcrypt = require('bcrypt');
 const expressSession = require( 'express-session');
 const bodyParser = require('body-parser');
 const User = require('./models/user')
-
 const passport = require("./passportStrategies");
-
 const jwt = require('jsonwebtoken');
 
 const app = express();
@@ -58,15 +56,8 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(routes);
-//app.use(express.static(path.join(__dirname,'/public')));
 
-app.get('/secret',
-  passport.authenticate('jwt',{session: false}),
-  (req,res,next)=>{
-    res.json("Secret Data")
-  }
-)
-
+app.use(express.static(path.join(__dirname,'/public')));
 
 const rule = new schedule.RecurrenceRule();
 //rule.dayOfWeek = new schedule.Range(1, 5);
