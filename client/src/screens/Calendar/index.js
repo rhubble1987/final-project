@@ -1,8 +1,11 @@
 import React, {useState, useEffect} from "react";
 import API from "../../util/API";
 import ScheduleBlock from "../../components/ScheduleBlock";
+import {requestWithJWT} from "../../httpClient";
+
 
 function CalendarForToday() {
+    const user = JSON.parse(localStorage.getItem('user'));
     const [schedule, setSchedule] = useState([]);
 
     useEffect(() => {
@@ -11,10 +14,12 @@ function CalendarForToday() {
 
     function mapEventsandTasks() {
         let eventsAndTasks = [];
-        API.getUserEvents()
+        const response = requestWithJWT();
+        if (response) {
+        API.getUserEvents(response[1].user.id)
         .then(userEvents => {
             eventsAndTasks = userEvents;
-            API.getUserTasks
+            API.getUserTasks(response[1].user.id)
             .then(userTasks => {
                 eventsAndTasks = eventsAndTasks.push(userTasks);
                 eventsAndTasks.sort(function(a,b) {
@@ -23,6 +28,8 @@ function CalendarForToday() {
                 setSchedule(eventsAndTasks);
             });
         }); 
+        }
+        
     };
 
     return (

@@ -12,9 +12,6 @@ router
 router
     .route('/signin')
     .post(usersController.validateLogin);
-
-router
-    .route('/todaystasksandevents')
-    .get(usersController.getUserEventsAndTasks);
+    
 
 module.exports = router;
