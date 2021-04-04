@@ -3,6 +3,7 @@ const moment = require("moment");
 const { Op } = require("sequelize");
 
 module.exports = function getWorkTimes(UserId, res) {
+  console.log('getWorkTimes is running');
   let todayOrTomorrowSearch;
 
   if (moment().format('H') < 16) {
@@ -44,7 +45,7 @@ module.exports = function getWorkTimes(UserId, res) {
         order: [["calculatedPriority", "ASC"]],
       }).then((savedTasksWithoutTimes) => {
         for (l = 0; l < savedEventBlocks.length; l++) {
-          for (p = 0; p < availableTimes.length; p++) {
+          for (p = 0; p < availableStartTimes.length; p++) {
             if (savedEventBlocks[l].dataValues.startTime === availableStartTimes[p]) {
               availableStartTimes.splice(p, (savedEventBlocks[l].dataValues.duration / 30));
             }

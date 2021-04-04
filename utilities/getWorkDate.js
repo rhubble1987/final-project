@@ -4,6 +4,7 @@ const { Op } = require("sequelize");
 const getWorkTimes = require("./getWorkTimes");
 
 module.exports = function getWorkDate(UserId, res) {
+  console.log('getWorkDate is running');
   let todayOrTomorrowSearch;
 
   if (moment().format('H') < 16) {

@@ -1,6 +1,7 @@
 const db = require('../models');
 const {Op} = require('sequelize');
 const moment = require('moment');
+const getPriority = require('../utilities/getPriority');
 
 
 module.exports = {
@@ -27,7 +28,7 @@ module.exports = {
             UserId: req.body.userId
         })
         .then(function() {
-            getPriority(req.params.userId,res);
+            getPriority(req.body.userId,res);
         })
         .catch(err => res.send(err));
     }
