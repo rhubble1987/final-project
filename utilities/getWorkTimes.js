@@ -6,15 +6,15 @@ module.exports = function getWorkTimes(UserId, res) {
   console.log('getWorkTimes is running');
   let todayOrTomorrowSearch;
 
-  if (moment().format('H') < 16) {
+  if (moment().format('H') < 9) {
     todayOrTomorrowSearch = moment().format("YYYYMMDD");
   }
 
-  if (moment().format('H') >= 16) {
+  if (moment().format('H') >= 9) {
     todayOrTomorrowSearch = moment().add(1,'days').format("YYYYMMDD");
   }
 
-  availableStartTimes = [540,570,600,630,660,690,720,750,780,810,840,870,900,930,960,990,1020];
+  availableStartTimes = [540,570,600,630,660,690,720,750,780,810,840,870,900,930,960,990];
 
 
   db.EventBlock.findAll({
@@ -33,7 +33,16 @@ module.exports = function getWorkTimes(UserId, res) {
     order: [["startTime", "ASC"]]
   })
     .then((savedEventBlocks) => {
-      console.log(savedEventBlocks);
+      if(savedEventBlocks) {
+        for (l = 0; l < savedEventBlocks.length; l++) {
+          for (p = 0; p < availableStartTimes.length; p++) {
+            if (savedEventBlocks[l].dataValues.startTime === availableStartTimes[p]) {
+              availableStartTimes.splice(p, (savedEventBlocks[l].dataValues.duration / 30));
+            }
+          }
+        
+        }
+      }
       db.Task.findAll({
         where: {
           UserId: UserId,
@@ -44,21 +53,17 @@ module.exports = function getWorkTimes(UserId, res) {
         },
         order: [["calculatedPriority", "ASC"]],
       }).then((savedTasksWithoutTimes) => {
-        for (l = 0; l < savedEventBlocks.length; l++) {
-          for (p = 0; p < availableStartTimes.length; p++) {
-            if (savedEventBlocks[l].dataValues.startTime === availableStartTimes[p]) {
-              availableStartTimes.splice(p, (savedEventBlocks[l].dataValues.duration / 30));
-            }
+        if (!savedTasksWithoutTimes) {
+          return null;
+        } else {
+        let tasksWithTimes = [];
+        
+          for (j = 0; j < savedTasksWithoutTimes.length; j++) {
+            savedTasksWithoutTimes[j].dataValues.startTime = availableStartTimes[j];
+            savedTasksWithoutTimes[j].dataValues.endTime = availableStartTimes[j] + 30;
+            tasksWithTimes.push(savedTasksWithoutTimes[j].dataValues);
           }
         
-        }
-
-        let tasksWithTimes = [];
-        for (j = 0; j < savedTasksWithoutTimes.length; j++) {
-          savedTasksWithoutTimes[j].dataValues.startTime = availableStartTimes[j];
-          savedTasksWithoutTimes[j].dataValues.endTime = availableStartTimes[j] + 30;
-          tasksWithTimes.push(savedTasksWithoutTimes[j].dataValues);
-        }
 
         const updateAllTasks = new Promise((resolve) => {
           for (m = 0; m < tasksWithTimes.length; m++) {
@@ -78,9 +83,13 @@ module.exports = function getWorkTimes(UserId, res) {
         resolve('All tasks updated!');
         });
 
-        updateAllTasks.then(() => {
-          res.sendStatus(200);
-        });
+          updateAllTasks.then(() => {
+            res.sendStatus(200);
+          });
+
+       
+        }
+        
       });
     })
     .catch((err) => {
