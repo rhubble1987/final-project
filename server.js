@@ -60,20 +60,23 @@ app.use(routes);
 app.use(express.static(path.join(__dirname,'/public')));
 
 const rule = new schedule.RecurrenceRule();
+//rule.dayOfWeek = new schedule.Range(1, 5);
 rule.hour = 8;
 rule.minute = 45;
 
-const rule2 = new schedule.RecurrenceRule();
+/* const rule2 = new schedule.RecurrenceRule();
+//rule.dayOfWeek = new schedule.Range(1, 5);
 rule.hour = 12;
-rule.minute = 45;
+rule.minute = 45; */
 
 schedule.scheduleJob(rule, function() {
   sendMorningText();
+  console.log('Function executed');
 });
 
-schedule.rescheduleJob(rule2, function() {
+/* schedule.scheduleJob(rule2, function() {
   sendAfternoonText();
-});
+}); */
 
 
 db.sequelize.sync().then(() => {

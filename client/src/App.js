@@ -4,13 +4,17 @@ import './App.css';
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import Login from "./screens/Login";
 import SignUp from "./screens/SignUp";
-import Tasks from "./screens/Tasks";
 import Navbar from './components/Nav';
 import CreateTask from './screens/CreateTask';
+
+import CalendarForToday from './screens/Calendar';
+
 import PrivateRoute from './components/PrivateRoute'
 import Logout from './screens/Logout';
 
 import EventBlock from './screens/EventBlocks';
+import Tasks from "./screens/Tasks";
+
 
 
 function App() {
@@ -30,7 +34,8 @@ function App() {
           <Switch>
             <Route path="/sign-in" component={() => <Login setJWT={setJWT} />} />
             <Route path="/sign-up" component={() => <SignUp />} />
-            <PrivateRoute path="/tasks" component={() => <Tasks />} />
+            <PrivateRoute path="/tasks" component={CalendarForToday} />
+            <PrivateRoute path="/alltasks" component={Tasks} />
             <PrivateRoute path="/logout" component={() => <Logout />} />
             <PrivateRoute path="/events" component={() => <EventBlock />} />
             <PrivateRoute path="/createTask" component={CreateTask} />
