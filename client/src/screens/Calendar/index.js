@@ -20,7 +20,6 @@ function CalendarForToday() {
             httpClient.get('/api/tasks/' + user.user.id)
         ])
         .then((results)=> {
-            console.log(results);
             let eventsAndTasks = [];
             for (let i = 0; i < results[0].data.length; i++) {
                 eventsAndTasks.push(results[0].data[i]);
@@ -29,8 +28,9 @@ function CalendarForToday() {
                 eventsAndTasks.push(results[1].data[j]);
             }
             eventsAndTasks.sort(function(a,b) {
-                   return a.startDate - b.startDate
+                   return a.startTime - b.startTime
                 });
+            console.log('eventsAndTasks');
             console.log(eventsAndTasks);
             setSchedule(eventsAndTasks);
         })

@@ -15,6 +15,7 @@ module.exports = function getWorkTimes(UserId, res) {
 
   availableStartTimes = [540,570,600,630,660,690,720,750,780,810,840,870,900,930,960,990,1020];
 
+
   db.EventBlock.findAll({
     where: {
       UserId: UserId,
@@ -31,6 +32,7 @@ module.exports = function getWorkTimes(UserId, res) {
     order: [["startTime", "ASC"]]
   })
     .then((savedEventBlocks) => {
+      console.log(savedEventBlocks);
       db.Task.findAll({
         where: {
           UserId: UserId,
@@ -44,7 +46,6 @@ module.exports = function getWorkTimes(UserId, res) {
         for (l = 0; l < savedEventBlocks.length; l++) {
           for (p = 0; p < availableTimes.length; p++) {
             if (savedEventBlocks[l].dataValues.startTime === availableStartTimes[p]) {
-              console.log('this is running');
               availableStartTimes.splice(p, (savedEventBlocks[l].dataValues.duration / 30));
             }
           }
@@ -58,7 +59,8 @@ module.exports = function getWorkTimes(UserId, res) {
           tasksWithTimes.push(savedTasksWithoutTimes[j].dataValues);
         }
 
-        for (m = 0; m < tasksWithTimes.length; m++) {
+        const updateAllTasks = new Promise((resolve) => {
+          for (m = 0; m < tasksWithTimes.length; m++) {
             db.Task.update(
                 {
                     startTime: tasksWithTimes[m].startTime,
@@ -72,7 +74,12 @@ module.exports = function getWorkTimes(UserId, res) {
             )
             .catch(err => {console.log(err)});
         }
-        res.sendStatus(200);
+        resolve('All tasks updated!');
+        });
+
+        updateAllTasks.then(() => {
+          res.sendStatus(200);
+        });
       });
     })
     .catch((err) => {

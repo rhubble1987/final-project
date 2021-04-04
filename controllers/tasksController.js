@@ -35,6 +35,7 @@ module.exports = {
         .catch(err => res.send(err));
     },
     create: function(req,res) {
+        console.log(req.body.dueDate);
         db.Task.create({
             taskName: req.body.taskName,
             dueDate: req.body.dueDate,
@@ -47,7 +48,6 @@ module.exports = {
         .catch(err => res.send(err));
     },
     updateUserTask: function(req,res) {
-        console.log(req.body.userId);
         db.Task.update({
             taskName: req.body.taskName,
             dueDate: req.body.dueDate,

@@ -1,10 +1,7 @@
-import React, {useState} from 'react';
-import Moment from 'react-moment';
+import React from 'react';
 import moment from 'moment';
-import { CloseButton } from 'react-bootstrap';
 
 function ScheduleBlock(props) {
-    console.log(props);
     const cls = "";
 
     if (moment().format('H') >= props.calculatedStartTime && moment().format('H') < props.calculatedEndTime) {
@@ -15,15 +12,16 @@ function ScheduleBlock(props) {
         cls = 'card text-white bg-danger'
     }
 
-    //props.scheduleBlock.startTime = moment.duration((props.scheduleBlock.startTime / 60),'minutes').asHours();
+    
     
     let startTime = moment().startOf('day').add(props.scheduleBlock.startTime,'minutes').format('h:mm A');
     let endTime = moment().startOf('day').add(props.scheduleBlock.endTime,'minutes').format('h:mm A');
-    let dueDate = moment(props.scheduleBlock.dueDate.toString()).format('MM/DD/YYYY');
+    
 
-    console.log(props.scheduleBlock.startTime);
+
     
         if (props.scheduleBlock.scheduleType === 'task') {
+            let dueDate = moment(props.scheduleBlock.dueDate.toString()).format('MM/DD/YYYY');
             return (
                 <div className={cls}>
                     <h5 className="card-header">{startTime} - {endTime}</h5>
@@ -40,10 +38,9 @@ function ScheduleBlock(props) {
         if (props.scheduleBlock.scheduleType === 'event') {
             return (
                 <div className={cls}>
+                    <h5 className="card-header">{startTime} - {endTime}</h5>
                     <div className="card-body">
-                        <p>{props.scheduleBlock.taskName} | Due: {props.scheduleBlock.dueDate}</p>
-                        <p>Priority: {props.scheduleBlock.calculatedPriority}</p>
-                        <p>Notes: {props.scheduleBlock.note}</p>
+                        <p>This time is blocked off for an event!</p>
                     </div>
                 </div>
             )

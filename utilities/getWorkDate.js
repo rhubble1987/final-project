@@ -4,11 +4,21 @@ const { Op } = require("sequelize");
 const getWorkTimes = require("./getWorkTimes");
 
 module.exports = function getWorkDate(UserId, res) {
+  let todayOrTomorrowSearch;
+
+  if (moment().format('H') < 16) {
+    todayOrTomorrowSearch = moment().format("YYYYMMDD");
+  }
+
+  if (moment().format('H') >= 16) {
+    todayOrTomorrowSearch = moment().add(1,'days').format("YYYYMMDD");
+  }
+
   db.EventBlock.findAll({
     where: {
       UserId: UserId,
       date: {
-        [Op.eq]: moment().format("YYYYMMDD"),
+        [Op.eq]: todayOrTomorrowSearch
       },
       endTime: {
         [Op.gte]: 540,
@@ -74,20 +84,28 @@ module.exports = function getWorkDate(UserId, res) {
               }
             }
           }
-          for (k = 0; k < tasksWithDates.length; k++) {
-            db.Task.update(
-              {
-                calculatedWorkDate: tasksWithDates[k].calculatedWorkDate,
-              },
-              {
-                where: {
-                  id: tasksWithDates[k].id,
+
+          let updateTasksWithDates = new Promise((resolve) => {
+            for (k = 0; k < tasksWithDates.length; k++) {
+              db.Task.update(
+                {
+                  calculatedWorkDate: tasksWithDates[k].calculatedWorkDate,
                 },
-              }
-            )
-            .catch(err => {console.log(err)});
-          }
+                {
+                  where: {
+                    id: tasksWithDates[k].id,
+                  },
+                }
+              )
+              .catch(err => {console.log(err)});
+            }
+            resolve('All tasks updated!');
+          });
+
+          updateTasksWithDates.then(() => {
             getWorkTimes(UserId, res);
+          });
+            
           
         })
         .catch((err) => {
