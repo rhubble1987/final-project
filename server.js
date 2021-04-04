@@ -78,6 +78,10 @@ schedule.scheduleJob(rule, function() {
   sendAfternoonText();
 }); */
 
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+}
+
 
 db.sequelize.sync().then(() => {
   http.listen(PORT, () => console.log(`Listening at http://localhost:${PORT}`));
