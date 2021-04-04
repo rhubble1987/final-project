@@ -4,9 +4,16 @@ router
 
     .route("/:userId")
     .get(tasksController.getUserTasksForToday)
-    .post(tasksController.create)
-    .put(tasksController.updateUserTask)
     .delete(tasksController.deleteUserTask);
+
+router
+    .route("/")
+    .post(tasksController.create)
+    .put(tasksController.updateUserTask);
+
+router 
+    .route("/complete")
+    .put(tasksController.completeUserTask);
 
 router 
     .route('/alltasks/:userId')

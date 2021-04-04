@@ -3,34 +3,30 @@ import { Form, Button } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 import { httpClient } from '../../httpClient';
 import { createPopper } from '@popperjs/core';
+import moment from 'moment';
 const CreateTask = () => {
 
     const [name, setName] = useState('');
     const [dueDate, setDueDate] = useState('');
     const [note, setNote] = useState('');
     const user = JSON.parse(localStorage.getItem("user"));
-    console.log(user.user.id);
   
     const history = useHistory();
 
     const submitData = () => {
-        const formdata = {
+        console.log(dueDate);
+        httpClient.post('/api/tasks/', {
+            userId: user.user.id,
             taskName: name,
-            dueDate: dueDate,
-            note: note,
-            userId: user.user.id
-        }
-
-        httpClient.post('/api/tasks', { ...formdata })
+            dueDate: moment(dueDate).format('YYYYMMDD'),
+            note: note
+        })
 
             .then(response => {
                 // handle next steps
                 console.log(response)
                 history.push('/api/tasks')
             })
-        // url: /tasks
-        // method: POST
-        // data: formdata
     }
     return <Form>
         New Task: <input onChange={(e) => setName(e.target.value)} className="form-control"  type="text" value={name} />

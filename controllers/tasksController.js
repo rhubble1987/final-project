@@ -1,5 +1,6 @@
 const db = require('../models');
 const moment = require('moment');
+const getPriority = require('../utilities/getPriority');
 
 module.exports = {
     getUserTasksForToday: function(req,res) {
@@ -46,12 +47,26 @@ module.exports = {
         .catch(err => res.send(err));
     },
     updateUserTask: function(req,res) {
+        console.log(req.body.userId);
         db.Task.update({
             taskName: req.body.taskName,
             dueDate: req.body.dueDate,
             note: req.body.note,
-            UserId: req.body.userId,
-            isComplete: req.body.completed
+        },
+        {
+            where: {
+            id: req.body.id
+            }
+        })
+        .then(function() {
+            getPriority(req.body.userId,res);
+        })
+        .catch(err => res.send(err));
+    },
+    completeUserTask: function(req,res) {
+        console.log(req.body);
+        db.Task.update({
+            isComplete: 1
         },
         {
             where: {

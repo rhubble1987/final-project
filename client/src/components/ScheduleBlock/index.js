@@ -14,13 +14,23 @@ function ScheduleBlock(props) {
     if (moment().format('H') >= props.startTime && moment().format('H') < props.endTime) {
         cls = 'card text-white bg-danger'
     }
+
+    //props.scheduleBlock.startTime = moment.duration((props.scheduleBlock.startTime / 60),'minutes').asHours();
+    
+    let startTime = moment().startOf('day').add(props.scheduleBlock.startTime,'minutes').format('h:mm A');
+    let endTime = moment().startOf('day').add(props.scheduleBlock.endTime,'minutes').format('h:mm A');
+    let dueDate = moment(props.scheduleBlock.dueDate.toString()).format('MM/DD/YYYY');
+
+    console.log(props.scheduleBlock.startTime);
+    
         if (props.scheduleBlock.scheduleType === 'task') {
             return (
                 <div className={cls}>
+                    <h5 className="card-header">{startTime} - {endTime}</h5>
                     <div className="card-body">
-                        <p>{props.scheduleBlock.taskName} | <Moment format="h:mm">{props.scheduleBlock.startTime}</Moment> - <Moment format="h:mm">{props.scheduleBlock.endTime}</Moment></p>
+                        <p>{props.scheduleBlock.taskName}</p>
                         <p>Priority: {props.scheduleBlock.calculatedPriority}</p>
-                        <p>Due: {props.scheduleBlock.dueDate}</p>
+                        <p>Due: {dueDate}</p>
                         <p>Notes: {props.scheduleBlock.note}</p>
                     </div>
                 </div>

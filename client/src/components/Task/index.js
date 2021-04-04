@@ -1,28 +1,28 @@
 import React from "react";
-import Moment from 'react-moment';
+import moment from 'moment';
+import {httpClient} from '../../httpClient';
 
 function Task(props) {
 
-function completeTask(event) {
-    /* event.preventDefault();
-    let taskInfo = {
+function completeTask() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    httpClient.put('/api/tasks/complete', {
         id: props.task.id,
-        taskName: props.task.taskName,
-        dueDate: props.task.tdueDate,
-        note: props.task.note,
-        isComplete: true
-    }
-    API.updateUserTask(taskInfo)
+        userId: user.user.id
+    })
     .then(() => {
         window.location.reload();
-    }); */
+    });
 
 }
 
+let dueDate = moment(props.task.dueDate.toString()).format("MM/DD/YYYY");
+
     return (
         <div className="card">
+            <h5 className="card-header">Priority {props.task.calculatedPriority}</h5>
             <div className="card-body">
-                <p>{props.task.taskName} | Priority | Due: <Moment parse="YYYYMMDD" format="MM/DD/YYYY">{props.task.dueDate}</Moment></p>
+                <p>{props.task.taskName} | Due: {dueDate}</p>
                 <p>Notes: {props.task.note}</p>
                 <button type="button" className="btn btn-secondary" onClick={completeTask} data-complete={props.task.id}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-check-circle" viewBox="0 0 16 16">

@@ -27,7 +27,7 @@ module.exports = {
             UserId: req.body.userId
         })
         .then(function() {
-            getPriority(req.body.userId,res);
+            getPriority(req.params.userId,res);
         })
         .catch(err => res.send(err));
     }
