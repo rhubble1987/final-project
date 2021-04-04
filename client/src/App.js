@@ -16,6 +16,7 @@ import EventBlock from './screens/EventBlocks';
 import Tasks from "./screens/Tasks";
 
 
+
 function App() {
   const [jwt, setJWT] = useState('');
   useEffect(() => {
@@ -36,9 +37,7 @@ function App() {
             <PrivateRoute path="/tasks" component={CalendarForToday} />
             <PrivateRoute path="/alltasks" component={Tasks} />
             <PrivateRoute path="/logout" component={() => <Logout />} />
-
-            <PrivateRoute path="/eventblock" component={() => <EventBlock />} />
-
+            <PrivateRoute path="/events" component={() => <EventBlock />} />
             <PrivateRoute path="/createTask" component={CreateTask} />
             <Redirect to='/sign-in' />
           </Switch>

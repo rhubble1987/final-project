@@ -14,7 +14,6 @@ const CreateTask = () => {
     const history = useHistory();
 
     const submitData = () => {
-        console.log(dueDate);
         httpClient.post('/api/tasks/', {
             userId: user.user.id,
             taskName: name,
@@ -27,6 +26,7 @@ const CreateTask = () => {
                 console.log(response)
                 history.push('/api/tasks')
             })
+
     }
     return <Form>
         New Task: <input onChange={(e) => setName(e.target.value)} className="form-control"  type="text" value={name} />
