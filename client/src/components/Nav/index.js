@@ -32,7 +32,6 @@ function Navbar(props){
         <ReactBootStrap.Nav.Link href="/alltasks" style={{ color: 'white' }}>
           <i className="fa fa-clipboard-list px-1" style={{ color: 'white' }}/> All Tasks
         </ReactBootStrap.Nav.Link>
-      
       <ReactBootStrap.Nav className="ml-auto">
         <ReactBootStrap.Nav.Link href="/logout">Logout</ReactBootStrap.Nav.Link>
       </ReactBootStrap.Nav>
