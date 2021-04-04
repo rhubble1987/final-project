@@ -52,16 +52,19 @@ module.exports = function getWorkDate(UserId, res) {
             let timeForTasks = 480 - totalEventTime;
 
             for (j = 0; j < prioritizedSavedTasks.length; j++) {
-                if (moment().format('H') <= 16) {
+              if (timeForTasks > 0) {
+                if (moment().format('H') <= 9) {
                     prioritizedSavedTasks[j].calculatedWorkDate = moment().format("YYYYMMDD");
                 }
-                if (moment().format('H') > 16) {
+                if (moment().format('H') > 9) {
                     prioritizedSavedTasks[j].calculatedWorkDate = moment().add(1,'days').format("YYYYMMDD");
                 }
               tasksWithDates.push(prioritizedSavedTasks[j]);
-              timeForTasks = timeForTasks + 30;
-              if (timeForTasks === 480) {
-                j = prioritizedSavedTasks.length;
+              timeForTasks = timeForTasks - 30;
+              }
+
+              if (timeForTasks <= 0) {
+                prioritizedSavedTasks[j].calculatedWorkDate = moment().add(1,'days').format("YYYYMMDD");
               }
             }
           }

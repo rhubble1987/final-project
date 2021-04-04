@@ -4,7 +4,6 @@ const getPriority = require('../utilities/getPriority');
 
 module.exports = {
     getUserTasksForToday: function(req,res) {
-        console.log(req.params);
         db.Task.findAll({
             where: {
                 userId: req.params.userId, 
@@ -14,13 +13,11 @@ module.exports = {
             order: [['calculatedPriority', 'ASC']]
         })
         .then((userTasks) => {
-            console.log(userTasks);
             res.json(userTasks)
         })
         .catch(err => res.send(err));
     },
     getAllTasksForAUser: function(req,res) {
-        console.log(req.params);
         db.Task.findAll({
             where: {
                 userId: req.params.userId, 
@@ -29,13 +26,11 @@ module.exports = {
             order: [['calculatedPriority', 'ASC']]
         })
         .then((userTasks) => {
-            console.log(userTasks);
             res.json(userTasks)
         })
         .catch(err => res.send(err));
     },
     create: function(req,res) {
-        console.log(req.body.dueDate);
         db.Task.create({
             taskName: req.body.taskName,
             dueDate: req.body.dueDate,
@@ -64,7 +59,6 @@ module.exports = {
         .catch(err => res.send(err));
     },
     completeUserTask: function(req,res) {
-        console.log(req.body);
         db.Task.update({
             isComplete: 1
         },

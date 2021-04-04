@@ -4,6 +4,8 @@ import { useHistory } from 'react-router';
 import { httpClient } from '../../httpClient';
 import { createPopper } from '@popperjs/core';
 import moment from 'moment';
+
+
 const CreateTask = () => {
 
     const [name, setName] = useState('');
@@ -21,12 +23,12 @@ const CreateTask = () => {
             dueDate: moment(dueDate).format('YYYYMMDD'),
             note: note
         })
-
-            .then(response => {
-                // handle next steps
-                console.log(response)
-                history.push('/api/tasks')
-            })
+            .then(() => {
+                setName('');
+                setDueDate('');
+                setNote('');
+                alert('Task saved!');
+            });
     }
     return <Form>
         New Task: <input onChange={(e) => setName(e.target.value)} className="form-control"  type="text" value={name} />

@@ -1,3 +1,5 @@
+//This file is for future functionality
+
 const db = require("../models");
 const getWorkDate = require("./getWorkDate");
 
