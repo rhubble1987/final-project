@@ -1,8 +1,6 @@
-import { useState, Col } from 'react';
+import { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import { useHistory } from 'react-router';
 import { httpClient } from '../../httpClient';
-import { createPopper } from '@popperjs/core';
 import moment from 'moment';
 
 
@@ -13,7 +11,6 @@ const CreateTask = () => {
     const [note, setNote] = useState('');
     const user = JSON.parse(localStorage.getItem("user"));
   
-    const history = useHistory();
 
     const submitData = () => {
         httpClient.post('/api/tasks/', {

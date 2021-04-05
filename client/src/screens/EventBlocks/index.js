@@ -1,7 +1,6 @@
 
 import { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import { useHistory } from 'react-router';
 import { httpClient } from '../../httpClient';
 
 
@@ -12,22 +11,22 @@ const EventBlock = () => {
     const [startTime, setStartTime] = useState(1);
     const [endTime, setEndTime] = useState(15);
     const user = JSON.parse(localStorage.getItem("user"))
-    const history = useHistory();
+
 
     const submitData = () => {
-        const formdata = {
-           
-            eventDate: eventDate,
-            startTime: startTime,            
-            userId: user.user.id
-        }
 
-        httpClient.post('/api/tasks', { ...formdata })
-            .then(response => {
-                // handle next steps
-                console.log(response)
-                history.push('/tasks')
-            })
+        httpClient.post('/api/events', {
+            date: eventDate,
+            startTime: startTime,
+            endTime: endTime,            
+            userId: user.user.id
+        })
+            .then(() => {
+              setEventDate("");
+              setStartTime(1);
+              setEndTime(15);
+              alert("Event added!");
+            });
         
     }
 

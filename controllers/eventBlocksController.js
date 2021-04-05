@@ -18,10 +18,11 @@ module.exports = {
         .catch(err => res.send(err));
     },
     create: function(req,res) {
-        const startTime = req.body.startTime;
-        const endTime = req.body.endTime;
+        const startTime = moment.duration(req.body.startTime).asMinutes();
+        const endTime = moment.duration(req.body.endTime).asMinutes();
+        const eventDate = moment(req.body.date).format('YYYYMMDD')
         db.EventBlock.create({
-            date: req.body.date,
+            date: eventDate,
             startTime: startTime,
             endTime: endTime,
             duration: endTime - startTime,

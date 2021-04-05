@@ -26,7 +26,7 @@ function Navbar(props){
       <ReactBootStrap.Nav.Link href="/createTask" style={{ color: 'white' }}>
           <i className="fa fa-plus px-1" style={{ color: 'white' }}></i> Add Task
       </ReactBootStrap.Nav.Link>
-      <ReactBootStrap.Nav.Link href="/eventblock" style={{ color: 'white' }}>
+      <ReactBootStrap.Nav.Link href="/events" style={{ color: 'white' }}>
           <i className="fa fa-calendar px-1" style={{ color: 'white' }}/> Add Event
       </ReactBootStrap.Nav.Link>
         <ReactBootStrap.Nav.Link href="/alltasks" style={{ color: 'white' }}>
