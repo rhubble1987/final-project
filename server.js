@@ -1,20 +1,20 @@
 require('dotenv').config({ path: './.env'});
 const express = require('express');
-const serveIndex = require('serve-index');
+
 const cors = require('cors');
-const passportLocal = require('passport-local').Strategy;
-const cookieParser = require('cookie-parser');
-const bcrypt = require('bcrypt');
-const expressSession = require( 'express-session');
-const bodyParser = require('body-parser');
+
+
+
+
+
 const User = require('./models/user')
-const passport = require("./passportStrategies");
+
 const jwt = require('jsonwebtoken');
 
 const app = express();
 const schedule = require('node-schedule');
 const sendMorningText = require('./utilities/sendMorningText');
-const sendAfternoonText = require('./utilities/sendAfternoonText');
+
 
 //middleware
 genToken = user => {
@@ -43,7 +43,7 @@ app.post('/register', async function (req, res, next) {
 });
 
 const http = require('http').Server(app);
-const path = require('path');
+
 const routes = require('./routes');
 
 const PORT = process.env.PORT || 3005;
@@ -56,6 +56,10 @@ app.use(express.json());
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
 
 app.use(routes);
 
