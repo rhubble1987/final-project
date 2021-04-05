@@ -12,8 +12,8 @@ import CalendarForToday from './screens/Calendar';
 import PrivateRoute from './components/PrivateRoute'
 import Logout from './screens/Logout';
 
-import EventBlock from './screens/EventBlocks';
 import Tasks from "./screens/Tasks";
+import EventBlock from "./screens/EventBlocks";
 
 
 
@@ -37,7 +37,7 @@ function App() {
             <PrivateRoute path="/tasks" component={CalendarForToday} />
             <PrivateRoute path="/alltasks" component={Tasks} />
             <PrivateRoute path="/logout" component={() => <Logout />} />
-            <PrivateRoute path="/events" component={() => <EventBlock />} />
+            <PrivateRoute path="/newevent" component={() => <EventBlock />} />
             <PrivateRoute path="/createTask" component={CreateTask} />
             <Redirect to='/sign-in' />
           </Switch>
