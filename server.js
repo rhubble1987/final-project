@@ -25,10 +25,7 @@ genToken = user => {
     exp: new Date().setDate(new Date().getDate() + 1)
   }, 'joanlouji');
 }
-app.use(bodyParser.json())
-app.get('/',(req,res)=>{
-  res.send('Hello world')
-})
+
 app.post('/register', async function (req, res, next) {
   const { email, password } = req.body;
   
@@ -55,33 +52,24 @@ const db = require('./models');
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(routes);
-
-app.use(express.static(path.join(__dirname,'/public')));
-
-const rule = new schedule.RecurrenceRule();
-//rule.dayOfWeek = new schedule.Range(1, 5);
-rule.hour = 8;
-rule.minute = 45;
-
-/* const rule2 = new schedule.RecurrenceRule();
-//rule.dayOfWeek = new schedule.Range(1, 5);
-rule.hour = 12;
-rule.minute = 45; */
-
-schedule.scheduleJob(rule, function() {
-  sendMorningText();
-  console.log('Function executed');
-});
-
-/* schedule.scheduleJob(rule2, function() {
-  sendAfternoonText();
-}); */
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
+app.use(routes);
+
+const rule = new schedule.RecurrenceRule();
+
+rule.hour = 8;
+rule.minute = 45;
+
+
+
+schedule.scheduleJob(rule, function() {
+  sendMorningText();
+  console.log('Function executed');
+});
 
 
 db.sequelize.sync().then(() => {
