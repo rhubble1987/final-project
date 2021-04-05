@@ -50,9 +50,11 @@
     "react-redux": "^7.2.2"
   },
   "scripts": {
-    "client": "cd client && npm start",
-    "server": "npm start",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "start": "node server.js",
+    "client": "cd client && npm run start",
+    "install": "cd client && npm install",
+    "build": "cd client && npm run build",
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",

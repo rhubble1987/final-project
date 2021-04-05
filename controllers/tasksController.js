@@ -1,20 +1,41 @@
 const db = require('../models');
+const moment = require('moment');
+const getPriority = require('../utilities/getPriority');
 
 module.exports = {
-    getUserTasks: function(req,res) {
-        db.Task.findAll({where: { Userid: req.body.userId, dueDate: '27-03-2021'}})
-        .sort({calculatedPriority: 1})
-        .then(userTasks => res.json(userTasks))
-        .catch(err => res.json(err));
+    getUserTasksForToday: function(req,res) {
+        db.Task.findAll({
+            where: {
+                userId: req.params.userId, 
+                isComplete: false,
+                calculatedWorkDate: moment().format('YYYYMMDD')
+            },
+            order: [['calculatedPriority', 'ASC']]
+        })
+        .then((userTasks) => {
+            res.json(userTasks)
+        })
+        .catch(err => res.send(err));
+    },
+    getAllTasksForAUser: function(req,res) {
+        db.Task.findAll({
+            where: {
+                userId: req.params.userId, 
+                isComplete: false,
+            },
+            order: [['calculatedPriority', 'ASC']]
+        })
+        .then((userTasks) => {
+            res.json(userTasks)
+        })
+        .catch(err => res.send(err));
     },
     create: function(req,res) {
         db.Task.create({
-            taskName: req.body.name,
+            taskName: req.body.taskName,
             dueDate: req.body.dueDate,
             note: req.body.note,
-            UserId: req.body.userId,
-            //importance: req.body.importance,
-            //durationEstimate: req.body.durationEstimate,
+            UserId: req.body.userId
         })
         .then(function() {
             getPriority(req.body.userId,res);
@@ -26,8 +47,20 @@ module.exports = {
             taskName: req.body.taskName,
             dueDate: req.body.dueDate,
             note: req.body.note,
-            UserId: req.body.userId
-
+        },
+        {
+            where: {
+            id: req.body.id
+            }
+        })
+        .then(function() {
+            getPriority(req.body.userId,res);
+        })
+        .catch(err => res.send(err));
+    },
+    completeUserTask: function(req,res) {
+        db.Task.update({
+            isComplete: 1
         },
         {
             where: {

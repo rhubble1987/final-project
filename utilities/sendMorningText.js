@@ -9,18 +9,19 @@ const { Op } = require("sequelize");
 
 
 module.exports = function sendMorningText() {
-  db.User.findAll({
-    include: {
-      model: db.Task,
-      where: {
-        calculatedPriority: {
-          [Op.lte] : 5
-        }
-      }
-
-    },
-    order: [[db.Task, 'calculatedPriority', 'ASC']]
-  })
+    console.log('Function executing');
+    db.User.findAll({
+        include: {
+            model: db.Task,
+            where: {
+                calculatedPriority: {
+                    [Op.lte] : 5
+                }
+            }
+            
+        },
+        order: [[db.Task, 'calculatedPriority', 'ASC']]
+    })
     .then(users => {
       for (i = 0; i < users.length; i++) {
         if (users[i].dataValues.Tasks !== null) {
