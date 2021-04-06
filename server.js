@@ -67,8 +67,8 @@ app.get("*", function(req, res) {
 
 const rule = new schedule.RecurrenceRule();
 
-rule.hour = 12;
-rule.minute = 57;
+rule.hour = 8;
+rule.minute = 45;
 
 
 
