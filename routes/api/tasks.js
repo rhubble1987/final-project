@@ -3,8 +3,12 @@ const tasksController = require("../../controllers/tasksController");
 router
 
     .route("/:userId")
-    .get(tasksController.getUserTasksForToday)
     .delete(tasksController.deleteUserTask);
+
+router
+    .route("/:userId")
+    .get(tasksController.getUserTasksForToday);
+
 
 router
     .route("/")

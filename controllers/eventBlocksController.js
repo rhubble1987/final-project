@@ -5,7 +5,7 @@ const getPriority = require('../utilities/getPriority');
 
 
 module.exports = {
-    getUserEventBlocks: function(req,res) {
+    getUserEventBlocksForToday: function(req,res) {
         db.EventBlock.findAll({
             where: {
                 UserId: req.params.userId,

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Card } from 'react-bootstrap';
 import { httpClient } from '../../httpClient';
 import moment from 'moment';
 
@@ -26,23 +26,22 @@ const CreateTask = () => {
                 alert('Task saved!');
             });
     }
-    return <Form>
+    return (
+    <div className="card p-3"> 
+    <Form>
         New Task: <input onChange={(e) => setName(e.target.value)} className="form-control"  type="text" value={name} />
+        <br/>
         Due Date: <input onChange={(e) => setDueDate(e.target.value)}  className="form-control" type="date" value={dueDate} />
-
-        
-
-       
-
-
+        <br/>
         <Form.Group controlId="exampleForm.ControlTextarea1">
             <Form.Label>Notes:</Form.Label>
             <Form.Control as="textarea" rows={3} onChange={(e) => setNote(e.target.value)} value={note} />
         </Form.Group>
-
-
+        <br/>
         <Button className="btn btn-dark btn-lg btn-block" onClick={submitData}>Submit</Button>
-    </Form>;
+    </Form>
+    </div>
+    )
 
 }
 

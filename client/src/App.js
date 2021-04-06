@@ -29,8 +29,7 @@ function App() {
   <div>
   <Router>
   <Navbar setJWT={setJWT} jwt={jwt} fixed="top"/>
-      <div className="outer">
-        <div className="inner col-lg-4 col-md-8 col-sm-12">
+        <div className="inner col-md-5">
           <Switch>
             <Route path="/sign-in" component={() => <Login setJWT={setJWT} />} />
             <Route path="/sign-up" component={() => <SignUp />} />
@@ -42,7 +41,6 @@ function App() {
             <Redirect to='/sign-in' />
           </Switch>
         </div>
-      </div>
     </Router>
     </div>
   );

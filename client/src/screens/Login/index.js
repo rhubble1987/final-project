@@ -1,11 +1,8 @@
-import axios from 'axios';
 import React, { useState } from "react";
 import { useHistory } from 'react-router-dom';
-import { SigningKeyPage } from 'twilio/lib/rest/api/v2010/account/signingKey';
 import FormGroup from "../../components/FormGroup";
 import TextInput from "../../components/TextInput";
 import { loginUser } from "../../httpClient";
-//import {Redirect} from 'react-router-dom';
 
 const Login = (props) => {
     const [email, setEmail] = useState('');
@@ -73,9 +70,6 @@ const Login = (props) => {
                 errors.map(err => <span><label className="text-danger">{err}</label><br /></span>)
             }
             <button type="submit" className="btn btn-dark btn-lg btn-block" onClick={handleSubmit(email, password)}>Sign in</button>
-            <p className="forgot-password text-right">
-                Forgot <a href="#">password?</a>
-            </p>
         </form>
    
     );

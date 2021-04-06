@@ -3,7 +3,7 @@ const eventBlocksController = require("../../controllers/eventBlocksController")
 
 router
   .route("/:userId")
-  .get(eventBlocksController.getUserEventBlocks)
+  .get(eventBlocksController.getUserEventBlocksForToday)
   
 
 router
