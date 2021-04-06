@@ -12,12 +12,14 @@ let cls = "";
 
         if (props.scheduleBlock.scheduleType === 'task') {
             let noteClass = "";
-            if (!props.task.note) {
+            if (!props.scheduleBlock.note) {
                 noteClass = "d-none";
             }
             let dueDate = moment(props.scheduleBlock.dueDate.toString()).format('MM/DD/YYYY');
             if (moment().format('H:mm') >= startTime2 && moment().format('H:mm') < endTime2) {
-                cls = 'card text-white bg-success'  
+                cls = 'card my-4 text-white bg-success'  
+            } else {
+                cls = 'card my-4';
             }
             return (
                 <div className={cls}>
@@ -34,7 +36,9 @@ let cls = "";
 
         if (props.scheduleBlock.scheduleType === 'event') {
             if (moment().format('H:mm') >= startTime2 && moment().format('H:mm') < endTime2) {
-                cls = 'card text-white bg-danger'  
+                cls = 'card my-4 text-white bg-danger'  
+            } else {
+                cls = 'card my-4';
             }
             return (
                 <div className={cls}>

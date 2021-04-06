@@ -45,9 +45,6 @@ const SignUp = () => {
             </FormGroup>
 
             <button type="submit" onClick={handleSubmit(email, password, firstName, lastName, mobileNumber)} className="btn btn-dark btn-lg btn-block">Register</button>
-            <p className="forgot-password text-right">
-                Already registered <a href="#">log in?</a>
-            </p>
         </form>
     );
 }
