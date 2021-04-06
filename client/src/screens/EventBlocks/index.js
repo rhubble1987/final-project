@@ -8,8 +8,8 @@ import { httpClient } from '../../httpClient';
 const EventBlock = () => {
 
     const [eventDate, setEventDate] = useState('');
-    const [startTime, setStartTime] = useState(1);
-    const [endTime, setEndTime] = useState(15);
+    const [startTime, setStartTime] = useState(0);
+    const [endTime, setEndTime] = useState(0);
     const user = JSON.parse(localStorage.getItem("user"))
 
 
@@ -23,21 +23,27 @@ const EventBlock = () => {
         })
             .then(() => {
               setEventDate("");
-              setStartTime(1);
-              setEndTime(15);
+              setStartTime("");
+              setEndTime("");
               alert("Event added!");
             });
         
     }
 
-    return <Form>
+    return (
+        <div className="card p-3">
+    <Form>
        Date: <input onChange={(e) => setEventDate(e.target.value)}  className="form-control" type="date" value={eventDate} />
+       <br/>
        Start Time: <input onChange={(e) => setStartTime(e.target.value)}  className="form-control" type="time" name="time" id="time" value={startTime} />
+       <br/>
        End Time: <input onChange={(e) => setEndTime(e.target.value)}  className="form-control" type="time" name="time" id="time" value={endTime} />
-       
+       <br/>
 
         <Button className="btn btn-dark btn-lg btn-block"  onClick={submitData}>Submit</Button>
-    </Form>;
+    </Form>
+    </div>
+    )
 
 }
 

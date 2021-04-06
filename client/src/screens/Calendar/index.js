@@ -53,7 +53,10 @@ function CalendarForToday() {
                     })}
                 </div>
             ) : (
-                <p>Nothing to work on today!</p> 
+                <div id="nada">
+                    <p className="text-center">Nothing to work on today!</p>
+                </div>
+                   
             )}
         </div>
     )

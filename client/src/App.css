@@ -90,11 +90,11 @@ body, html, .App, #root, .outer {
 
 .inner {
   margin: auto;
-  background: #ffffff;
+  /* background: #ffffff;
   box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
-  padding: 40px 55px 45px 55px;
+  padding: 40px 55px 45px;
   border-radius: 15px;
-  transition: all .3s;
+  transition: all .3s; */
 }
 
 .outer .form-control:focus {
@@ -124,5 +124,14 @@ body, html, .App, #root, .outer {
 
 .forgot-password a {
   color: #167bff;
+}
+
+#nada {
+  margin: auto;
+  background: #ffffff;
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+  padding: 40px 55px 45px;
+  border-radius: 5px;
+  transition: all .3s;
 }
 

@@ -32,7 +32,9 @@ function Tasks() {
                     })}
                 </div>
             ) : (
-                <p>Nothing to work on it seems??</p> 
+                <div id="nada">
+                    <p className="text-center">Nothing to work on? Lucky you!</p>
+                </div>
             )}
         </div>
     )

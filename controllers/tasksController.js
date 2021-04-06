@@ -6,7 +6,7 @@ module.exports = {
     getUserTasksForToday: function(req,res) {
         db.Task.findAll({
             where: {
-                userId: req.params.userId, 
+                UserId: req.params.userId, 
                 isComplete: false,
                 calculatedWorkDate: moment().format('YYYYMMDD')
             },
@@ -20,7 +20,7 @@ module.exports = {
     getAllTasksForAUser: function(req,res) {
         db.Task.findAll({
             where: {
-                userId: req.params.userId, 
+                UserId: req.params.userId, 
                 isComplete: false,
             },
             order: [['calculatedPriority', 'ASC']]
@@ -83,6 +83,20 @@ module.exports = {
 
         })
         .then(newTask => res.json(newTask))
+        .catch(err => res.send(err));
+    },
+    getUserTasksForTomorrow: function(req,res) {
+        db.Task.findAll({
+            where: {
+                UserId: req.params.userId, 
+                isComplete: false,
+                calculatedWorkDate: moment().add(1,'days').format('YYYYMMDD')
+            },
+            order: [['calculatedPriority', 'ASC']]
+        })
+        .then((userTasks) => {
+            res.json(userTasks)
+        })
         .catch(err => res.send(err));
     }
 }

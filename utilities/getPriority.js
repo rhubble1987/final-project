@@ -33,7 +33,9 @@ module.exports = function getPriority(UserId, res) {
             console.log(err);
           });
         }
-      } else {
+        getWorkDate(UserId, res);
+      }  
+      if (savedTasks.length === 1) {
         let copiedTask = [...savedTasks];
         db.Task.update(
           { calculatedPriority: 1 },
@@ -45,8 +47,12 @@ module.exports = function getPriority(UserId, res) {
           .catch((err) => {
             console.log(err);
           });
-      }
-      getWorkDate(UserId, res);
+          getWorkDate(UserId, res);
+        }
+        if (savedTasks.length < 1) {
+          res.sendStatus(200);
+        }
+      
     })
 
     .catch((err) => {
